@@ -1,0 +1,42 @@
+{
+	"name": "mati-core/cms",
+	"license": "MIT",
+	"description": "CMS for nette framework",
+	"homepage": "https://github.com/mati-core/cms",
+	"authors": [
+		{
+			"name": "Martin Olmr",
+			"homepage": "https://martinolmr.cz"
+		}
+	],
+	"require": {
+		"php": ">=8.0",
+		"nette/application": "^3.0",
+		"nette/security": "^3.0",
+		"nette/utils": "^3.0",
+		"nette/neon": "^3.0",
+		"nette/di": "^3.0",
+		"nette/bootstrap": "^3.0",
+		"baraja-core/package-manager": "~2.0",
+		"baraja-core/doctrine": "~2.0"
+	},
+	"require-dev": {
+		"nette/tester": "~2.0",
+		"tracy/tracy": "^2.3",
+		"phpstan/phpstan": "^0.12",
+		"phpstan/phpstan-nette": "^0.12.6",
+		"mati-core/user": "dev-main"
+	},
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"minimum-stability": "stable",
+	"scripts": {
+		"phpstan": [
+			"vendor/bin/phpstan analyse src -c phpstan.neon --level 6 --no-progress"
+		],
+		"tester": "tester tests -s"
+	}
+}
