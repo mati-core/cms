@@ -5,8 +5,9 @@ includes:
 parameters:
 	excludes_analyse:
 		- src/Extension/*
-	fileExtensions:
-		- dist
+		- src/Presenters/*
+		- intall/*
+		- update/*
 
 	checkGenericClassInNonGenericObjectType: false
 	checkMissingIterableValueType: false
