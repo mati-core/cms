@@ -29,4 +29,12 @@ class BaseAdminInnerPackagePresenter extends BasePresenter
 
 	use UserPresenterAccessTrait;
 
+	public function startup()
+	{
+		parent::startup();
+		$this->template->user = $this->getUser()->getIdentity()?->getUser();
+	}
+
+
+
 }

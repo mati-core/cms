@@ -6,7 +6,7 @@ parameters:
 	excludes_analyse:
 		- src/Extension/*
 		- src/Presenters/*
-		- intall/*
+		- install/*
 		- update/*
 
 	checkGenericClassInNonGenericObjectType: false

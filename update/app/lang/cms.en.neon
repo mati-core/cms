@@ -1,0 +1,6 @@
+main:
+	adminTitle: Administration
+	sign_out: Sign out
+login:
+	title: Administration entry
+	forgot_password: I forgot my password
