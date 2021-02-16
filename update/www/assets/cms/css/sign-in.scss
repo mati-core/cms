@@ -1,0 +1,24 @@
+$background: white !default;
+$background_angle: 135deg !default;
+$background_color_one: rgba(255, 255, 255, 1) !default;
+$background_color_two: rgba(9, 9, 121, 1) !default;
+$background_color_three: rgba(0, 255, 132, 1) !default;
+$background_color_one_gradient: 0% !default;
+$background_color_two_gradient: 50% !default;
+$background_color_three_gradient: 100% !default;
+
+$footer_text_color: white;
+$footer_link_color: rgb(0, 213, 65);
+
+.login-page {
+  background: $background;
+  background: linear-gradient($background_angle, $background_color_one $background_color_one_gradient, $background_color_two $background_color_two_gradient, $background_color_three $background_color_three_gradient);
+}
+
+.login-footer {
+  color: $footer_text_color;
+}
+
+.login-footer a {
+  color: $footer_link_color;
+}

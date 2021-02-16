@@ -1,0 +1,14 @@
+.login-page {
+  background: white;
+  background: linear-gradient(135deg, white 0%, #090979 50%, #00ff84 100%);
+}
+
+.login-footer {
+  color: white;
+}
+
+.login-footer a {
+  color: #00d541;
+}
+
+/*# sourceMappingURL=sign-in.css.map */
