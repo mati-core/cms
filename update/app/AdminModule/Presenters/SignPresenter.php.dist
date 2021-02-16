@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\AdminModule\Presenters;
+
+use Nette\Application\AbortException;
+
+/**
+ * Class SignInPresenter
+ * @package App\AdminModule\Presenters
+ */
+final class SignPresenter extends SignInnerPackagePresenter
+{
+
+}
