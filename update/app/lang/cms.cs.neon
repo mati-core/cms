@@ -1,6 +1,7 @@
 main:
 	adminTitle: Administrace
 	sign_out: Odhlásit se
+	support: Podpora
 login:
 	title: Vstup do administrace
 	forgot_password: Zapomenuté heslo

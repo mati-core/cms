@@ -71,10 +71,9 @@
 				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 			</li>
 			<li class="nav-item d-none d-sm-inline-block">
-				<a href="../../index3.html" class="nav-link">Home</a>
-			</li>
-			<li class="nav-item d-none d-sm-inline-block">
-				<a href="#" class="nav-link">Contact</a>
+				<a n:href="Homepage:default" class="nav-link">
+					<i class="fas fa-home"></i>
+				</a>
 			</li>
 		</ul>
 
@@ -92,7 +91,11 @@
 
 		<!-- Right navbar links -->
 		<ul class="navbar-nav ml-auto">
-			<!-- Messages Dropdown Menu -->
+			<li class="nav-item d-none d-md-inline-block">
+				<a n:href="Homepage:support" class="nav-link">
+					<i class="far fa-life-ring"></i>&nbsp;{_cms.main.support}
+				</a>
+			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link" data-toggle="dropdown" href="#">
 					<i class="far fa-comments"></i>
@@ -186,27 +189,20 @@
 			<li class="nav-item dropdown">
 				<a href="#" class="nav-link text-primary" data-toggle="dropdown">
 					<img src="{$basePath}/assets/cms/img/logo.png" class="user-image img-circle elevation-2" alt="User Image">
-					{$user?->getUsername()}
+					<span class="d-none d-lg-inline">{$user?->getUsername()}</span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-					<span class="dropdown-item dropdown-header">15 Notifications</span>
+					<span class="dropdown-item dropdown-header">{$user?->getGroup()?->getName()}</span>
 					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item">
-						<i class="fas fa-envelope mr-2"></i> 4 new messages
-						<span class="float-right text-muted text-sm">3 mins</span>
+					<a n:href="Account:default" class="dropdown-item">
+						<i class="fas fa-user mr-2"></i> Můj profil
 					</a>
 					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item">
-						<i class="fas fa-users mr-2"></i> 8 friend requests
-						<span class="float-right text-muted text-sm">12 hours</span>
+					<a n:href="Account:passwordChange" class="dropdown-item">
+						<i class="fas fa-lock mr-2"></i> Změna hesla
 					</a>
 					<div class="dropdown-divider"></div>
-					<a href="#" class="dropdown-item">
-						<i class="fas fa-file mr-2"></i> 3 new reports
-						<span class="float-right text-muted text-sm">2 days</span>
-					</a>
-					<div class="dropdown-divider"></div>
-					<a n:href="Sign:out" class="dropdown-item dropdown-footer">
+					<a n:href="Sign:out" class="dropdown-item dropdown-footer text-danger">
 						{_cms.main.sign_out}<i class="fas fa-sign-out ml-3"></i>
 					</a>
 				</div>
