@@ -5,6 +5,8 @@ includes:
 parameters:
 	excludes_analyse:
 		- src/Extension/*
+	custom_extensions:
+		- dist
 
 	checkGenericClassInNonGenericObjectType: false
 	checkMissingIterableValueType: false
