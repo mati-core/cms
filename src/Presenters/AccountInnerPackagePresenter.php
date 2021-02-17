@@ -16,4 +16,9 @@ use MatiCore\User\UserPresenterAccessTrait;
 class AccountInnerPackagePresenter extends BaseAdminPresenter
 {
 
+	/**
+	 * @var string
+	 */
+	protected $pageRight = 'cms';
+
 }

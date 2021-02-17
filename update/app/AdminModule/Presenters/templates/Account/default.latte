@@ -1,5 +1,5 @@
 {block pageTitle}
-	<h1>Můj profil</h1>
+	<h1>{_cms.profile.title}</h1>
 {/block}
 
 {block breadcrumb}
@@ -9,44 +9,74 @@
 		</a>
 	</li>
 	<li class="breadcrumb-item active">
-		<i class="far fa-user"></i>&nbsp;Můj profil
+		<i class="far fa-user"></i>&nbsp;{_cms.profile.title}
 	</li>
 {/block}
 
 {block content}
-	<div class="card card-primary card-outline">
-		<div class="card-body box-profile">
-			<div class="row">
-				<div class="col-12 col-md-3">
-					<div class="text-center">
-						<img class="profile-user-img img-fluid img-circle" src="{$basePath}/assets/cms/img/logo.png" alt="User profile picture">
-						<h3 class="profile-username text-center">{$user?->getUsername()}</h3>
-						<p class="text-muted text-center">{$user?->getGroup()?->getName()}</p>
+	<div class="row">
+		<div class="col">
+			<div class="card card-primary card-outline">
+				<div class="card-body box-profile">
+					<div class="row">
+						<div class="col-12 col-md-3">
+							<div class="text-center">
+								<img class="profile-user-img img-fluid img-circle" src="{$basePath}{$user?->getIcon()}"
+									 alt="User profile picture">
+								<h3 class="profile-username text-center">{$user?->getFullName()}</h3>
+								<p class="text-muted text-center">{$user?->getGroup()?->getName()}</p>
+							</div>
+						</div>
+						<div class="col-12 col-md-9">
+							<div class="row">
+								<div class="col text-right">
+									<a n:href="Account:edit" class="btn btn-xs btn-warning">
+										<i class="fas fa-pen"></i>&nbsp;{_cms.main.edit}
+									</a>
+									<a n:href="Sign:out" class="btn btn-xs btn-outline-danger">
+										<i class="fas fa-sign-out"></i>
+									</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<ul class="list-group list-group-unbordered mb-3 mt-5">
+										<li class="list-group-item">
+											<small>{_cms.profile.fullName}</small>
+											<a class="float-right">{$user->getFullName()}</a>
+										</li>
+										<li class="list-group-item">
+											<small>{_cms.profile.email}</small>
+											<a class="float-right">{$user->getEmail() ?? ''}</a>
+										</li>
+										<li class="list-group-item">
+											<small>{_cms.profile.phone}</small>
+											<a class="float-right">{$user->getPhone() ?? ''}</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-12 col-md-6">
+									<ul class="list-group list-group-unbordered mb-3 mt-5">
+										<li class="list-group-item">
+											<small>{_cms.profile.lastLogin}</small>
+											<a class="float-right">{$user?->getLoginDate()?->format('d.m.Y H:i:s')}</a>
+										</li>
+										<li class="list-group-item">
+											<small>{_cms.profile.ipAddress}</small>
+											<a class="float-right">{$user?->getLoginIp()}</a>
+										</li>
+										<li class="list-group-item">
+											<small>{_cms.profile.device}</small>
+											<small class="float-right">{$user?->getLoginDevice()|truncate:60}</small>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="col">
-					<div class="text-right">
-						<a n:href="Sign:out" class="btn btn-xs btn-warning">
-							<i class="fas fa-pen"></i>&nbsp;Upravit
-						</a>
-						<a n:href="Sign:out" class="btn btn-xs btn-outline-danger">
-							<i class="fas fa-sign-out"></i>
-						</a>
-					</div>
-					<ul class="list-group list-group-unbordered mb-3 mt-5">
-						<li class="list-group-item">
-							<b>Followers</b> <a class="float-right">1,322</a>
-						</li>
-						<li class="list-group-item">
-							<b>Following</b> <a class="float-right">543</a>
-						</li>
-						<li class="list-group-item">
-							<b>Friends</b> <a class="float-right">13,287</a>
-						</li>
-					</ul>
-				</div>
+				<!-- /.card-body -->
 			</div>
 		</div>
-		<!-- /.card-body -->
 	</div>
 {/block}

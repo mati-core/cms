@@ -1,5 +1,22 @@
 main:
+	save: Save
+	edit: Edit
+	delete: Delete
+	back: Back
 	adminTitle: Administration
+profile:
+	title: My profile
+	passwordChange: Change password
+	firstname: Firstname
+	lastName: Lastname
+	fullName: Fullname
+	namePrefix: Titles before the name
+	nameSuffix: Titles after name
+	email: E-mail
+	phone: Phone
+	ipAddress: IP address
+	lastLogin: Last login
+	device: Device
 	sign_out: Sign out
 	support: Support
 login:

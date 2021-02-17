@@ -1,0 +1,120 @@
+{block pageTitle}
+	<h1>{_cms.profile.title}</h1>
+{/block}
+
+{block breadcrumb}
+	<li class="breadcrumb-item">
+		<a n:href="Homepage:default">
+			<i class="far fa-home"></i>&nbsp;Home
+		</a>
+	</li>
+	<li class="breadcrumb-item active">
+		<i class="far fa-user"></i>&nbsp;{_cms.profile.title}
+	</li>
+{/block}
+
+{block content}
+	<form action="">
+		<div class="row">
+			<div class="col text-right mb-3">
+				<a n:href="Account:default" class="btn btn-secondary btn-sm">
+					<i class="fas fa-reply"></i>&nbsp;{_cms.main.back}
+				</a>
+				<button type="submit" class="btn btn-success btn-sm">
+					<i class="fas fa-save"></i>&nbsp;{_cms.main.save}
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card card-primary card-outline">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="form-group">
+									<label for="">{_cms.profile.firstName}</label>
+									<input type="text" class="form-control form-control">
+								</div>
+								<div class="form-group">
+									<label for="">{_cms.profile.lastName}</label>
+									<input type="text" class="form-control form-control">
+								</div>
+								<div class="form-group">
+									<label for="">{_cms.profile.namePrefix}</label>
+									<input type="text" class="form-control form-control">
+								</div>
+								<div class="form-group">
+									<label for="">{_cms.profile.nameSuffix}</label>
+									<input type="text" class="form-control form-control">
+								</div>
+							</div>
+							<div class="col-12 col-md-6">
+								<div class="form-group">
+									<label for="">{_cms.profile.email}</label>
+									<input type="text" class="form-control form-control">
+								</div>
+								<div class="form-group">
+									<label for="">{_cms.profile.phone}</label>
+									<input type="text" class="form-control form-control">
+								</div>
+								<div class="row text-center">
+									<div class="col">
+										<img src="{$basePath}{$user?->getIcon('/avatar/gravatar.png')}" class="img-circle img-avatar-64" alt="gravatar">
+										<br>
+										<small>Gravatar</small>
+										<br>
+										<input type="radio" name="icon">
+									</div>
+									<div class="col">
+										<img src="{$basePath}/assets/img/user/avatar/avatar_1.png" class="img-circle img-avatar-64" alt="man 1">
+										<br>
+										<small>Style 1</small>
+										<br>
+										<input type="radio" name="icon">
+									</div>
+									<div class="col">
+										<img src="{$basePath}/assets/img/user/avatar/avatar_4.png" class="img-circle img-avatar-64" alt="man 2">
+										<br>
+										<small>Style 2</small>
+										<br>
+										<input type="radio" name="icon">
+									</div>
+									<div class="col">
+										<img src="{$basePath}/assets/img/user/avatar/avatar_5.png" class="img-circle img-avatar-64" alt="man 3">
+										<br>
+										<small>Style 3</small>
+										<br>
+										<input type="radio" name="icon">
+									</div>
+									<div class="col">
+										<img src="{$basePath}/assets/img/user/avatar/avatar_2.png" class="img-circle img-avatar-64" alt="woman 1">
+										<br>
+										<small>Style 4</small>
+										<br>
+										<input type="radio" name="icon">
+									</div>
+									<div class="col">
+										<img src="{$basePath}/assets/img/user/avatar/avatar_3.png" class="img-circle img-avatar-64" alt="woman 2">
+										<br>
+										<small>Style 5</small>
+										<br>
+										<input type="radio" name="icon">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row border-top" style="height: 10px;">
+							<div class="col m-0 p-0">
+								<p class="text-sm pt-1">
+									Nastavte si vlastní gravatar na
+									<a href="https://en.gravatar.com" target="_blank">https://en.gravatar.com</a>. (Gravatar musí být registrován na stejný email, jaký je nastaven u vašeho účtu).
+								</p>
+							</div>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+		</div>
+	</form>
+{/block}

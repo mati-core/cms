@@ -91,11 +91,6 @@
 
 		<!-- Right navbar links -->
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item d-none d-md-inline-block">
-				<a n:href="Homepage:support" class="nav-link">
-					<i class="far fa-life-ring"></i>&nbsp;{_cms.main.support}
-				</a>
-			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link" data-toggle="dropdown" href="#">
 					<i class="far fa-comments"></i>
@@ -188,22 +183,26 @@
 			<!-- Sidebar user (optional) -->
 			<li class="nav-item dropdown">
 				<a href="#" class="nav-link text-primary" data-toggle="dropdown">
-					<img src="{$basePath}/assets/cms/img/logo.png" class="user-image img-circle elevation-2" alt="User Image">
-					<span class="d-none d-lg-inline">{$user?->getUsername()}</span>
+					<img src="{$basePath}{$user?->getIcon()}" class="user-image img-circle elevation-2" alt="User Image">
+					<span class="d-none d-xl-inline">{$user?->getFullName()}</span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 					<span class="dropdown-item dropdown-header">{$user?->getGroup()?->getName()}</span>
 					<div class="dropdown-divider"></div>
 					<a n:href="Account:default" class="dropdown-item">
-						<i class="fas fa-user mr-2"></i> Můj profil
+						<i class="fas fa-user mr-2"></i> {_cms.profile.title}
 					</a>
 					<div class="dropdown-divider"></div>
 					<a n:href="Account:passwordChange" class="dropdown-item">
-						<i class="fas fa-lock mr-2"></i> Změna hesla
+						<i class="fas fa-lock mr-2"></i> {_cms.profile.passwordChange}
+					</a>
+					<div class="dropdown-divider"></div>
+					<a n:href="Homepage:support" class="dropdown-item">
+						<i class="far fa-life-ring mr-2"></i> {_cms.profile.support}
 					</a>
 					<div class="dropdown-divider"></div>
 					<a n:href="Sign:out" class="dropdown-item dropdown-footer text-danger">
-						{_cms.main.sign_out}<i class="fas fa-sign-out ml-3"></i>
+						{_cms.profile.sign_out}<i class="fas fa-sign-out ml-3"></i>
 					</a>
 				</div>
 			</li>
@@ -392,7 +391,7 @@
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
-		<section class="content-header">
+		<section class="content-header ml-2 mr-2">
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
@@ -410,7 +409,7 @@
 		</section>
 
 		<!-- Main content -->
-		<section class="content">
+		<section class="content ml-2 mr-2">
 			{include content}
 		</section>
 		<!-- /.content -->

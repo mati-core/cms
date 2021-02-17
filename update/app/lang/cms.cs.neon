@@ -1,5 +1,22 @@
 main:
+	save: Uložit
+	edit: Upravit
+	delete: Smazat
+	back: Zpět
 	adminTitle: Administrace
+profile:
+	title: Můj profil
+	passwordChange: Změnit heslo
+	firstName: Jméno
+	lastName: Příjmení
+	fullName: Jméno
+	namePrefix: Tituly před jménem
+	nameSuffix: Tituly za jménem
+	email: E-mail
+	phone: Telefon
+	ipAddress: IP adresa
+	lastLogin: Poslední přihlášení
+	device: Zařízení
 	sign_out: Odhlásit se
 	support: Podpora
 login:

@@ -12,6 +12,6 @@ namespace MatiCore\Cms;
 class CmsHelper
 {
 
-	public const CMS_VERSION = '0.0.1 - alpha';
+	public const CMS_VERSION = '0.0.2 - alpha';
 
 }
