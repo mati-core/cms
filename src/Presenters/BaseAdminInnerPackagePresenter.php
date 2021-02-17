@@ -35,6 +35,4 @@ class BaseAdminInnerPackagePresenter extends BasePresenter
 		$this->template->user = $this->getUser()->getIdentity()?->getUser();
 	}
 
-
-
 }

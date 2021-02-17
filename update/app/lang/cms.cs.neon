@@ -19,6 +19,10 @@ profile:
 	device: Zařízení
 	sign_out: Odhlásit se
 	support: Podpora
+	password: Nové heslo
+	passwordConfirm: 'Nové heslo (znovu)'
+	passwordChangeSuccess: Heslo bylo změněno.
+	passwordChangeErrorEqual: Hesla nejsou stejná.
 login:
 	title: Vstup do administrace
 	forgot_password: Zapomenuté heslo

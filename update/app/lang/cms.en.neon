@@ -19,6 +19,10 @@ profile:
 	device: Device
 	sign_out: Sign out
 	support: Support
+	password: New password
+	passwordConfirm: Confirm new password
+	passwordChangeSuccess: Password was changed.
+	passwordChangeErrorEqual: Password must be equal.
 login:
 	title: Administration entry
 	forgot_password: I forgot my password

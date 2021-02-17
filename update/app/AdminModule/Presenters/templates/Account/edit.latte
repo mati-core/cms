@@ -14,13 +14,13 @@
 {/block}
 
 {block content}
-	<form action="">
+	<form n:name="accountEditForm" class="ajax">
 		<div class="row">
 			<div class="col text-right mb-3">
 				<a n:href="Account:default" class="btn btn-secondary btn-sm">
 					<i class="fas fa-reply"></i>&nbsp;{_cms.main.back}
 				</a>
-				<button type="submit" class="btn btn-success btn-sm">
+				<button n:name="submit" class="btn btn-success btn-sm">
 					<i class="fas fa-save"></i>&nbsp;{_cms.main.save}
 				</button>
 			</div>
@@ -32,74 +32,45 @@
 						<div class="row">
 							<div class="col-12 col-md-6">
 								<div class="form-group">
-									<label for="">{_cms.profile.firstName}</label>
-									<input type="text" class="form-control form-control">
+									<label n:name="firstName">{_cms.profile.firstName}</label>
+									<input n:name="firstName" class="form-control form-control">
 								</div>
 								<div class="form-group">
-									<label for="">{_cms.profile.lastName}</label>
-									<input type="text" class="form-control form-control">
+									<label n:name="lastName">{_cms.profile.lastName}</label>
+									<input n:name="lastName" class="form-control form-control">
 								</div>
 								<div class="form-group">
-									<label for="">{_cms.profile.namePrefix}</label>
-									<input type="text" class="form-control form-control">
+									<label n:name="namePrefix">{_cms.profile.namePrefix}</label>
+									<input n:name="namePrefix" class="form-control form-control">
 								</div>
 								<div class="form-group">
-									<label for="">{_cms.profile.nameSuffix}</label>
-									<input type="text" class="form-control form-control">
+									<label n:name="nameSuffix">{_cms.profile.nameSuffix}</label>
+									<input n:name="nameSuffix" class="form-control form-control">
 								</div>
 							</div>
 							<div class="col-12 col-md-6">
 								<div class="form-group">
-									<label for="">{_cms.profile.email}</label>
-									<input type="text" class="form-control form-control">
+									<label n:name="email">{_cms.profile.email}</label>
+									<input n:name="email" class="form-control form-control">
 								</div>
 								<div class="form-group">
-									<label for="">{_cms.profile.phone}</label>
-									<input type="text" class="form-control form-control">
+									<label n:name="phone">{_cms.profile.phone}</label>
+									<input n:name="phone" class="form-control form-control">
 								</div>
 								<div class="row text-center">
-									<div class="col">
-										<img src="{$basePath}{$user?->getIcon('/avatar/gravatar.png')}" class="img-circle img-avatar-64" alt="gravatar">
-										<br>
-										<small>Gravatar</small>
-										<br>
-										<input type="radio" name="icon">
-									</div>
-									<div class="col">
-										<img src="{$basePath}/assets/img/user/avatar/avatar_1.png" class="img-circle img-avatar-64" alt="man 1">
-										<br>
-										<small>Style 1</small>
-										<br>
-										<input type="radio" name="icon">
-									</div>
-									<div class="col">
-										<img src="{$basePath}/assets/img/user/avatar/avatar_4.png" class="img-circle img-avatar-64" alt="man 2">
-										<br>
-										<small>Style 2</small>
-										<br>
-										<input type="radio" name="icon">
-									</div>
-									<div class="col">
-										<img src="{$basePath}/assets/img/user/avatar/avatar_5.png" class="img-circle img-avatar-64" alt="man 3">
-										<br>
-										<small>Style 3</small>
-										<br>
-										<input type="radio" name="icon">
-									</div>
-									<div class="col">
-										<img src="{$basePath}/assets/img/user/avatar/avatar_2.png" class="img-circle img-avatar-64" alt="woman 1">
-										<br>
-										<small>Style 4</small>
-										<br>
-										<input type="radio" name="icon">
-									</div>
-									<div class="col">
-										<img src="{$basePath}/assets/img/user/avatar/avatar_3.png" class="img-circle img-avatar-64" alt="woman 2">
-										<br>
-										<small>Style 5</small>
-										<br>
-										<input type="radio" name="icon">
-									</div>
+									{foreach $form[avatar]->items as $key => $label}
+										<div class="col">
+											{if $label === 'Gravatar'}
+												<img src="{$basePath}{$user?->getGravatarIcon('/avatar/gravatar.png')}" class="img-circle img-avatar-64" alt="gravatar">
+											{else}
+												<img src="{$basePath}/assets/img/user/avatar/avatar_{$key}.png" class="img-circle img-avatar-64" alt="man {$key}">
+											{/if}
+											<br>
+											<small>{$label}</small>
+											<br>
+											<input n:name="avatar:$key">
+										</div>
+									{/foreach}
 								</div>
 							</div>
 						</div>
