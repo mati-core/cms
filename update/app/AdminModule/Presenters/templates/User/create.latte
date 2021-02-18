@@ -1,0 +1,138 @@
+{block title}
+	{_cms.users.newAccount}
+{/block}
+
+{block pageTitle}
+	<h1>{_cms.users.newAccount}</h1>
+{/block}
+
+{block breadcrumb}
+	<li class="breadcrumb-item">
+		<a n:href=":Admin:Homepage:default">
+			<i class="fas fa-tachometer-alt"></i>
+		</a>
+	</li>
+	<li class="breadcrumb-item">
+		<a n:href=":Admin:User:default">
+			<i class="fas fa-user"></i>&nbsp;{_cms.users.list}
+		</a>
+	</li>
+	<li class="breadcrumb-item active">
+		<i class="fas fa-plus"></i>&nbsp;{_cms.users.newAccount}
+	</li>
+{/block}
+
+{block content}
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<!-- Small boxes (Stat box) -->
+
+			<form n:name="createUserForm">
+				<div class="row">
+					<div class="col-12 mb-3 text-right">
+						<a n:href="default" class="btn btn-sm btn-secondary">
+							<i class="fas fa-reply"></i>&nbsp;{_cms.main.back}
+						</a>
+						<button n:name="submit" class="btn btn-sm btn-success">
+							<i class="fas fa-save"></i>&nbsp;{_cms.main.save}
+						</button>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12">
+
+						<!-- Default box -->
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">{_cms.users.newAccount}</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-6 col-xs-12">
+										<div class="form-group">
+											<label n:name="firstName">{_cms.profile.firstName}</label>
+											<input n:name="firstName" class="form-control">
+											<div class="invalid-feedback">Insert real first name</div>
+										</div>
+										<div class="form-group">
+											<label n:name="lastName">{_cms.profile.lastName}</label>
+											<input n:name="lastName" class="form-control">
+											<div class="invalid-feedback">Insert real last name</div>
+										</div>
+										<div class="form-group">
+											<label n:name="email">{_cms.profile.email}</label>
+											<input n:name="email" class="form-control">
+										</div>
+										<div class="form-group">
+											<label n:name="password">{_cms.profile.password}</label>
+											<input n:name="password" class="form-control">
+											<div class="invalid-feedback">Password must be min 8 chars length.</div>
+										</div>
+									</div>
+
+									<div class="col-6 col-xs-12">
+										<div class="form-group">
+											<label for="">{_cms.users.group}</label>
+											<select n:name="group" class="form-control"></select>
+										</div>
+										<div class="form-group">
+											<label n:name="prefix">{_cms.profile.namePrefix}</label>
+											<input n:name="prefix" class="form-control">
+										</div>
+										<div class="form-group">
+											<label n:name="suffix">{_cms.profile.nameSuffix}</label>
+											<input n:name="suffix" class="form-control">
+										</div>
+										<div class="form-group">
+											<label n:name="phone">{_cms.profile.phone}</label>
+											<input n:name="phone" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col mt-3">
+										<div class="form-group">
+											<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+												<input n:name="active" class="custom-control-input">
+												<label v-if="active" class="custom-control-label"
+													   for="customSwitch3">{_cms.main.active}</label>
+											</div>
+										</div>
+									</div>
+									<div class="col">
+										<div class="row text-center">
+											{foreach $form[avatar]->items as $key => $label}
+												<div class="col">
+													{if $label === 'Gravatar'}
+														<img src="{$basePath}/assets/img/user/avatar/gravatar.png"
+															 class="img-circle img-avatar-64" alt="gravatar">
+													{else}
+														<img src="{$basePath}/assets/img/user/avatar/avatar_{$key}.png"
+															 class="img-circle img-avatar-64" alt="man {$key}">
+													{/if}
+													<br>
+													<small>{$label}</small>
+													<br>
+													<input n:name="avatar:$key">
+												</div>
+											{/foreach}
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.card -->
+
+					</div>
+				</div>
+				<!-- /.row -->
+			</form>
+
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
+{/block}

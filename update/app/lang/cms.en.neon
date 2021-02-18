@@ -1,9 +1,22 @@
 main:
+	add: Add
 	save: Save
 	edit: Edit
 	delete: Delete
 	back: Back
 	adminTitle: Administration
+	active: Active
+	inactive: Inactive
+menu:
+	dashboard: Dashboard
+	settings:
+		title: Settings
+		mainSetting: Main Settings
+		users:
+			title: Users
+			accounts: Accounts
+			groups: Groups
+			roles: Roles
 profile:
 	title: My profile
 	passwordChange: Change password
@@ -19,10 +32,16 @@ profile:
 	device: Device
 	sign_out: Sign out
 	support: Support
-	password: New password
+	password: Password
+	passwordNew: New password
 	passwordConfirm: Confirm new password
 	passwordChangeSuccess: Password was changed.
 	passwordChangeErrorEqual: Password must be equal.
+users:
+	list: User accounts
+	newAccount: New account
+	editAccount: Edit Account
+	group: Group
 login:
 	title: Administration entry
 	forgot_password: I forgot my password

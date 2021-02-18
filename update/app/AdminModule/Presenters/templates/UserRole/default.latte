@@ -1,0 +1,121 @@
+{block title}
+	Role uživatelů
+{/block}
+
+{block breadcrumb}
+	<ol class="breadcrumb float-sm-right">
+		<li class="breadcrumb-item">
+			<a n:href="Homepage:default">
+				<i class="fas fa-tachometer-alt"></i>
+			</a>
+		</li>
+		<li class="breadcrumb-item active">
+			<i class="fas fa-key"></i> Role uživatelů
+		</li>
+	</ol>
+{/block}
+
+{block vueScripts}
+	<script src="{$basePath}/cms/dist/js/vue/components.js"></script>
+	<script src="{$basePath}/js/initVue.js"></script>
+{/block}
+
+{block content}
+	<!-- Main content -->
+	<section class="content" id="app">
+		<div class="container-fluid">
+			<!-- Small boxes (Stat box) -->
+            {snippet flashes}
+				<div n:foreach="$flashes as $msg" class="row">
+					<div class="col-lg-12">
+                        {if $msg->type === 'success'}
+							<div class="alert alert-dismissible alert-success">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-check"></i> Hotovo!</h5>
+                                {$msg->message}
+							</div>
+                        {elseif $msg->type === 'warning'}
+							<div class="alert alert-dismissible alert-warning">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-warning"></i> Pozor!</h5>
+                                {$msg->message}
+							</div>
+                        {elseif $msg->type === 'danger' || $msg->type === 'error'}
+							<div class="alert alert-dismissible alert-danger">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-ban"></i> Chyba!</h5>
+                                {$msg->message}
+							</div>
+                        {else}
+							<div class="alert alert-dismissible alert-info">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-info"></i> Upozornění!</h5>
+                                {$msg->message}
+							</div>
+                        {/if}
+					</div>
+				</div>
+            {/snippet}
+			<div class="row">
+				<div class="col-12 mb-3 text-right">
+					<a n:href="create" class="btn btn-sm btn-primary">
+						<i class="fas fa-plus"></i>&nbsp;Přidat
+					</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+
+					<!-- Default box -->
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Role uživatelů</h3>
+						</div>
+
+						<div class="card-body p-0">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>
+										Název
+									</th>
+									<th>
+									</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr n:foreach="$roles as $role">
+									<td>
+										<a>
+                                            {$role->getName()}
+										</a>
+									</td>
+									<td class="text-right">
+										<a class="btn btn-outline-info btn-xs" n:href="access, id => $role->getId()">
+											<i class="fas fa-key"></i> Oprávnění
+										</a>
+										<a class="btn btn-info btn-xs" n:href="edit, id => $role->getId()">
+											<i class="fas fa-edit"></i>
+										</a>
+										<btn-delete
+												redirect="{plink 'delete!', 'id' => $role->getId()}"></btn-delete>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+
+				</div>
+			</div>
+			<!-- /.row -->
+
+			</form>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
+{/block}

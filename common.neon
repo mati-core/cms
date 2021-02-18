@@ -1,0 +1,58 @@
+parameters:
+	menu:
+		cmsMainDefault:
+			group: cms-main
+			position: 0
+			rights:
+				- cms__menu
+			items:
+				dashboard:
+					title: cms.menu.dashboard
+					icon: 'fas fa-tachometer-alt'
+					route: ':Admin:Homepage:default'
+					position: 0
+					#badgeHandler: cmsDashboardBadgeHandler
+					rights:
+						- cms
+		cmsMainSetting:
+			title: cms.menu.settings.title
+			group: cms-main
+			position: 100
+			rights:
+				- cms__menu_settings
+			items:
+				mainSetting:
+					title: cms.menu.settings.mainSetting
+					route: ':Admin:Setting:default'
+					icon: 'fas fa-cogs'
+					position: 0
+					rights:
+						- cms__settings
+				users:
+					title: cms.menu.settings.users.title
+					icon: 'fas fa-users'
+					position: 10
+					rights:
+						- cms__users
+					children:
+						userAccounts:
+							title: cms.menu.settings.users.accounts
+							icon: 'fas fa-user'
+							route: ':Admin:User:default'
+							position: 0
+							rights:
+								- cms__users__accounts
+						userGroups:
+							title: cms.menu.settings.users.groups
+							icon: 'fas fa-users'
+							route: ':Admin:UserGroup:default'
+							position: 0
+							rights:
+								- cms__users__groups
+						userRole:
+							title: cms.menu.settings.users.roles
+							icon: 'fas fa-user-lock'
+							route: ':Admin:UserRole:default'
+							position: 0
+							rights:
+								- cms__users__roles

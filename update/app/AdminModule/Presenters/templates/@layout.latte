@@ -224,10 +224,10 @@
 
 {define sidebar}
 	<!-- Main Sidebar Container -->
-	<aside class="main-sidebar sidebar-light-lightblue elevation-4">
+	<aside class="main-sidebar sidebar-light-blue elevation-4">
 		<!-- Brand Logo -->
 		<a n:href="Homepage:default" class="brand-link">
-			<img src="{$basePath}/assets/cms/img/logo.png"
+			<img src="{$basePath}/assets/cms/img/logo_128.png"
 				 alt="Logo"
 				 class="brand-image">
 			<span class="brand-text font-weight-light">
@@ -241,148 +241,52 @@
 			<nav class="mt-2">
 				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
 					data-accordion="false">
-					<!-- Add icons to the links using the .nav-icon class
-						 with font-awesome or any other icon font library -->
-					<li class="nav-item has-treeview">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-tachometer-alt"></i>
-							<p>
-								Dashboard
-								<i class="right fas fa-angle-left"></i>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="../../index.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Dashboard v1</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="../../index2.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Dashboard v2</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="../../index3.html" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Dashboard v3</p>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a href="../widgets.html" class="nav-link">
-							<i class="nav-icon fas fa-th"></i>
-							<p>
-								Widgets
-								<span class="right badge badge-danger">New</span>
-							</p>
-						</a>
-					</li>
-					<li class="nav-header">EXAMPLES</li>
-					<li class="nav-item">
-						<a href="../calendar.html" class="nav-link">
-							<i class="nav-icon far fa-calendar-alt"></i>
-							<p>
-								Calendar
-								<span class="badge badge-info right">2</span>
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="../gallery.html" class="nav-link">
-							<i class="nav-icon far fa-image"></i>
-							<p>
-								Gallery
-							</p>
-						</a>
-					</li>
-					<li class="nav-header">MULTI LEVEL EXAMPLE</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="fas fa-circle nav-icon"></i>
-							<p>Level 1</p>
-						</a>
-					</li>
-					<li class="nav-item has-treeview">
-						<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-circle"></i>
-							<p>
-								Level 1
-								<i class="right fas fa-angle-left"></i>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Level 2</p>
-								</a>
-							</li>
-							<li class="nav-item has-treeview">
-								<a href="#" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>
-										Level 2
-										<i class="right fas fa-angle-left"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="far fa-dot-circle nav-icon"></i>
-											<p>Level 3</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="far fa-dot-circle nav-icon"></i>
-											<p>Level 3</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											<i class="far fa-dot-circle nav-icon"></i>
-											<p>Level 3</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Level 2</p>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="fas fa-circle nav-icon"></i>
-							<p>Level 1</p>
-						</a>
-					</li>
-					<li class="nav-header">LABELS</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon far fa-circle text-danger"></i>
-							<p class="text">Important</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon far fa-circle text-warning"></i>
-							<p>Warning</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link">
-							<i class="nav-icon far fa-circle text-info"></i>
-							<p>Informational</p>
-						</a>
-					</li>
+					{foreach $cmsMenu as $menu}
+						{if $menu->getTitle() !== null}
+							<li class="nav-header">{_$menu->getTitle()}</li>
+						{/if}
+						{foreach $menu->getItems() as $menuItem}
+							{if $presenter->checkAccess($menuItem->getRight())}
+								<li n:class="nav-item, $menuItem->hasChildren() ? has-treeview, $presenter->isMenuItemActive($menuItem) ? menu-open">
+									<a href="{if $menuItem->getRoute() !== null}{plink $menuItem->getRoute()}{else}#{/if}" n:class="nav-link, $presenter->isMenuItemActive($menuItem) ? active">
+										<i n:if="$menuItem->getIcon() !== null"
+												class="nav-icon {$menuItem->getIcon()}"></i>
+										<p>
+											{_$menuItem->getTitle()}
+											{if $menuItem->getBadgeHandler() !== null}
+												{var $badge = $menuItem->getBadgeHandler()->getBadge()}
+												{if is_array($badge)}
+													<span n:foreach="$badge as $b" n:class="right, badge, $b->getColor()">{$b->getValue()}</span>
+												{elseif $badge !== null}
+													<span n:class="right, badge, $badge->getColor()">{$badge->getValue()}</span>
+												{/if}
+											{/if}
+										</p>
+									</a>
+									<ul n:if="$menuItem->hasChildren()" class="nav nav-treeview">
+										<li n:foreach="$menuItem->getChildren() as $childItem" n:if="$presenter->checkAccess($childItem->getRight())"
+												class="nav-item">
+											<a href="{if $childItem->getRoute() !== null}{plink $childItem->getRoute()}{else}#{/if}" n:class="nav-link, $presenter->isMenuItemActive($childItem) ? active">
+												<i n:if="$childItem->getIcon() !== null"
+														class="nav-icon {$childItem->getIcon()}"></i>
+												<p>
+													{_$childItem->getTitle()}
+                                                        {if $childItem->getBadgeHandler() !== null}
+														{var $badge = $childItem->getBadgeHandler()->getBadge()}
+														{if is_array($badge)}
+															<span n:foreach="$badge as $b" n:class="right, badge, $b->getColor()">{$b->getValue()}</span>
+														{elseif $badge !== null}
+															<span n:class="right, badge, $badge->getColor()">{$badge->getValue()}</span>
+														{/if}
+													{/if}
+												</p>
+											</a>
+										</li>
+									</ul>
+								</li>
+							{/if}
+						{/foreach}
+					{/foreach}
 				</ul>
 			</nav>
 			<!-- /.sidebar-menu -->

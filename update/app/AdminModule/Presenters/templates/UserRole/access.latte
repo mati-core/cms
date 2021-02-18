@@ -1,0 +1,160 @@
+{block title}
+    {$role->getName()} - oprávnění
+{/block}
+
+{block breadcrumb}
+	<ol class="breadcrumb float-sm-right">
+		<li class="breadcrumb-item">
+			<a n:href="Homepage:default">
+				<i class="fas fa-tachometer-alt"></i>
+			</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a n:href="UserRole:default">
+				<i class="fas fa-wrench"></i> Skupiny uživatel
+			</a>
+		</li>
+		<li class="breadcrumb-item active">
+			Oprávnění: {$role->getName()}
+		</li>
+	</ol>
+{/block}
+
+{block content}
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<!-- Small boxes (Stat box) -->
+            {snippet flashes}
+				<div n:foreach="$flashes as $msg" class="row">
+					<div class="col-lg-12">
+                        {if $msg->type === 'success'}
+							<div class="alert alert-dismissible alert-success">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-check"></i> Hotovo!</h5>
+                                {$msg->message}
+							</div>
+                        {elseif $msg->type === 'warning'}
+							<div class="alert alert-dismissible alert-warning">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-warning"></i> Pozor!</h5>
+                                {$msg->message}
+							</div>
+                        {elseif $msg->type === 'danger' || $msg->type === 'error'}
+							<div class="alert alert-dismissible alert-danger">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-ban"></i> Chyba!</h5>
+                                {$msg->message}
+							</div>
+                        {else}
+							<div class="alert alert-dismissible alert-info">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h5><i class="icon fas fa-info"></i> Upozornění!</h5>
+                                {$msg->message}
+							</div>
+                        {/if}
+					</div>
+				</div>
+            {/snippet}
+			<div class="row">
+				<div class="col-12 mb-3 text-right">
+					<a n:href="default" class="btn btn-sm btn-secondary">
+						<i class="fas fa-reply"></i>&nbsp;Zpět
+					</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+
+					<!-- Default box -->
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Oprávnění role: {$role->getName()}</h3>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-lg-6 col-12">
+                                    {foreach $rights as $cat => $data}
+                                        {if $cat === 'items'}
+                                            {include items, data => $data}
+                                        {else}
+											<b>{$cat}</b>
+                                            {foreach $data as $c => $d}
+                                                {if $c === 'items'}
+                                                    {include items, data => $d}
+                                                {elseif isset($d['items'])}
+													<div class="ml-5">
+                                                        {include items, data => $d['items']}
+													</div>
+                                                {/if}
+                                            {/foreach}
+                                        {/if}
+                                    {/foreach}
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+
+				</div>
+			</div>
+			<!-- /.row -->
+
+			</form>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
+{/block}
+
+{block scripts}
+	<script>
+		function updateRoleRight(id) {
+			$.nette.ajax({
+				type: 'GET',
+				url: {link toogleRight!, id => $role->getId()},
+				data: {
+					'rightId': id,
+				},
+				success: function () {
+					toastr.success('Změny byly úspěšně uloženy.');
+				}
+			});
+		}
+	</script>
+{/block}
+
+{define items}
+    {foreach $data as $right}
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+						<input type="checkbox" class="custom-control-input"
+						       id="switch-{$right['id']}" onchange="updateRoleRight({$right['id']})"{if $right['enabled'] === 1} checked{/if}>
+						<label class="custom-control-label" for="switch-{$right['id']}">
+                            {$right['name']} <small>({$right['slug']})</small>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div n:if="$presenter->isSuperAdmin()" class="col text-right">
+				<a n:href="editRight, id => $role->getId(), rightId => $right['id']"
+						class="btn btn-xs btn-info">
+					<i class="fas fa-edit"></i>
+				</a>
+				<a n:href="removeRight!, id => $role->getId(), rightId => $right['id']"
+						class="btn btn-xs btn-danger">
+					<i class="fas fa-trash"></i>
+				</a>
+			</div>
+		</div>
+	    {if isset($right['items'])}
+		    <div class="ml-5">
+                {include items, data => $right['items']}
+		    </div>
+        {/if}
+    {/foreach}
+{/define}

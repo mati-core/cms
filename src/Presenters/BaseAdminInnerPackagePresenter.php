@@ -7,6 +7,7 @@ namespace App\AdminModule\Presenters;
 
 use App\Presenters\BasePresenter;
 use Baraja\Doctrine\EntityManager;
+use MatiCore\Menu\MenuPresenterTrait;
 use MatiCore\User\UserPresenterAccessTrait;
 
 /**
@@ -28,11 +29,13 @@ class BaseAdminInnerPackagePresenter extends BasePresenter
 	public $entityManager;
 
 	use UserPresenterAccessTrait;
+	
+	use MenuPresenterTrait;
 
-	public function startup()
+	public function beforeRender()
 	{
-		parent::startup();
 		$this->template->user = $this->getUser()->getIdentity()?->getUser();
+		$this->template->cmsMenu = $this->getMenuListByGroup('cms-main');
 	}
 
 }

@@ -25,7 +25,8 @@
 		"tracy/tracy": "^2.3",
 		"phpstan/phpstan": "^0.12",
 		"phpstan/phpstan-nette": "^0.12.6",
-		"mati-core/user": "dev-main"
+		"mati-core/user": "dev-main",
+		"mati-core/menu": "dev-main"
 	},
 	"autoload": {
 		"classmap": [

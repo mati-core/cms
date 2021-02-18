@@ -1,9 +1,22 @@
 main:
+	add: Přidat
 	save: Uložit
 	edit: Upravit
 	delete: Smazat
 	back: Zpět
 	adminTitle: Administrace
+	active: Aktivní
+	inactive: Neaktivní
+menu:
+	dashboard: Dashboard
+	settings:
+		title: Nastavení
+		mainSetting: Základní nastavení
+		users:
+			title: Uživatelé
+			accounts: Účty
+			groups: Skupiny
+			roles: Role
 profile:
 	title: Můj profil
 	passwordChange: Změnit heslo
@@ -19,10 +32,16 @@ profile:
 	device: Zařízení
 	sign_out: Odhlásit se
 	support: Podpora
-	password: Nové heslo
+	password: Heslo
+	passwordNew: Nové heslo
 	passwordConfirm: 'Nové heslo (znovu)'
 	passwordChangeSuccess: Heslo bylo změněno.
 	passwordChangeErrorEqual: Hesla nejsou stejná.
+users:
+	list: Seznam uživatelů
+	newAccount: Nový účet
+	editAccount: Editace účtu
+	group: Skupina
 login:
 	title: Vstup do administrace
 	forgot_password: Zapomenuté heslo
