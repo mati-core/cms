@@ -18,7 +18,7 @@
 		"nette/di": "^3.0",
 		"nette/bootstrap": "^3.0",
 		"baraja-core/package-manager": "~2.0",
-		"baraja-core/doctrine": "~2.0"
+		"baraja-core/doctrine": "~3.0"
 	},
 	"require-dev": {
 		"nette/tester": "~2.0",
