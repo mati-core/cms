@@ -6,6 +6,10 @@
 	<h1>{_cms.users.list}</h1>
 {/block}
 
+{block vueScripts}
+	<script src="{$basePath}/assets/cms/js/vue/init.js"></script>
+{/block}
+
 {block breadcrumb}
 	<li class="breadcrumb-item">
 		<a n:href=":Admin:Homepage:default">
@@ -95,6 +99,7 @@
 										Upravit
 									</a>
 									<btn-delete
+											label="{_cms.main.confirm}"
 											redirect="{plink 'delete!', 'id' => $userAccount->getId()}"></btn-delete>
 								</td>
 							</tr>

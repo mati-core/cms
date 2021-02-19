@@ -4,9 +4,15 @@ main:
 	edit: Upravit
 	delete: Smazat
 	back: Zpět
+	confirm: Potvrdit
+	cancel: Zrušit
 	adminTitle: Administrace
 	active: Aktivní
 	inactive: Neaktivní
+	name: Název
+	description: Popis
+	access: Oprávnění
+	version: Verze
 menu:
 	dashboard: Dashboard
 	settings:
@@ -42,6 +48,12 @@ users:
 	newAccount: Nový účet
 	editAccount: Editace účtu
 	group: Skupina
+	groups: Skupiny uživatelů
+	groupEdit: Editace skupiny
+	role: Role
+	roleTitle: Role uživatelů
+	roleNewTitle: Nová role
+	roleEditTitle: Editace role
 login:
 	title: Vstup do administrace
 	forgot_password: Zapomenuté heslo

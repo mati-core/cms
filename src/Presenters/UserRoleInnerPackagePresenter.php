@@ -9,10 +9,10 @@ use Baraja\Doctrine\EntityManagerException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MatiCore\Form\FormFactoryTrait;
-use MatiCore\User\Entity\UserGroup;
-use MatiCore\User\Entity\UserRight;
-use MatiCore\User\Entity\UserRole;
+use MatiCore\User\UserGroup;
 use MatiCore\User\UserManagerAccessor;
+use MatiCore\User\UserRight;
+use MatiCore\User\UserRole;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
@@ -41,7 +41,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 	public function actionDefault(): void
 	{
-		$this->template->roles = $this->userManager->get()->getRoles();
+		$this->template->roles = $this->userManager->get()->getUserRoles();
 	}
 
 	/**
@@ -65,7 +65,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 	 */
 	private function getRights(): array
 	{
-		$rights = $this->userManager->get()->getRights();
+		$rights = $this->userManager->get()->getUserRights();
 
 		$list = [];
 
@@ -222,7 +222,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 		$form->onSuccess[] = function (Form $form, ArrayHash $values): void {
 			try {
-				$role = new UserRole(Strings::webalize($values->name), $values->name);
+				$role = new UserRole($values->name);
 
 				$this->entityManager->persist($role)->flush($role);
 

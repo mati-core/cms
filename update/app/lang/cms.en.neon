@@ -4,9 +4,15 @@ main:
 	edit: Edit
 	delete: Delete
 	back: Back
+	confirm: Confirm
+	cancel: Cancel
 	adminTitle: Administration
 	active: Active
 	inactive: Inactive
+	name: Name
+	description: Description
+	access: Access
+	version: Version
 menu:
 	dashboard: Dashboard
 	settings:
@@ -40,8 +46,14 @@ profile:
 users:
 	list: User accounts
 	newAccount: New account
-	editAccount: Edit Account
+	editAccount: Edit account
 	group: Group
+	groups: User groups
+	groupEdit: Edit group
+	role: Role
+	roleTitle: User roles
+	roleNewTitle: New role
+	roleEditTitle: Edit role
 login:
 	title: Administration entry
 	forgot_password: I forgot my password

@@ -18,8 +18,7 @@ parameters:
 			title: cms.menu.settings.title
 			group: cms-main
 			position: 100
-			rights:
-				- cms__menu_settings
+			right: cms__menu_settings
 			items:
 				mainSetting:
 					title: cms.menu.settings.mainSetting

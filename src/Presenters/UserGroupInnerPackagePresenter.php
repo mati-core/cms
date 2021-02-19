@@ -9,8 +9,7 @@ use Baraja\Doctrine\EntityManagerException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MatiCore\Form\FormFactoryTrait;
-use MatiCore\User\Entity\UserGroup;
-use MatiCore\User\Entity\UserRole;
+use MatiCore\User\UserGroup;
 use MatiCore\User\UserManagerAccessor;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
@@ -39,8 +38,8 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 
 	public function actionDefault(): void
 	{
-		$this->template->userGroups = $this->userManager->get()->getGroups();
-		$this->template->roles = $this->userManager->get()->getRoles();
+		$this->template->userGroups = $this->userManager->get()->getUserGroups();
+		$this->template->roles = $this->userManager->get()->getUserRoles();
 	}
 
 	/**
@@ -51,7 +50,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 		try {
 			$this->editedUserGroup = $this->userManager->get()->getGroupById($id);
 			$this->template->group = $this->editedUserGroup;
-			$this->template->roles = $this->userManager->get()->getRoles();
+			$this->template->roles = $this->userManager->get()->getUserRoles();
 		} catch (NoResultException|NonUniqueResultException $e) {
 			$this->flashMessage('Požadované skupina uživatelů neexistuje.', 'error');
 			$this->redirect('default');
@@ -65,7 +64,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 	public function actionEdit(string $id): void
 	{
 		try {
-			$this->editedUserGroup = $this->userManager->get()->getGroupById($id);
+			$this->editedUserGroup = $this->userManager->get()->getUserGroupById($id);
 			$this->template->group = $this->editedUserGroup;
 		} catch (NoResultException|NonUniqueResultException $e) {
 			$this->flashMessage('Požadované skupina uživatelů neexistuje.', 'error');
@@ -79,17 +78,12 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 	public function handleDelete(string $id): void
 	{
 		try {
-			$group = $this->userManager->get()->getGroupById($id);
+			$group = $this->userManager->get()->getUserGroupById($id);
 
 			try {
-				$roles = $group->getPermissionRoles();
+				$roles = $group->getRoles();
 				foreach ($roles as $role) {
-					$group->removePermissionRole($role);
-				}
-
-				$rights = $group->getPermissionRights();
-				foreach ($rights as $right) {
-					$group->removePermissionRight($right);
+					$group->removeRole($role);
 				}
 
 				$this->entityManager->remove($group);
@@ -113,10 +107,10 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 	public function handleDefault(string $id): void
 	{
 		try {
-			$newDefaultGroup = $this->userManager->get()->getGroupById($id);
+			$newDefaultGroup = $this->userManager->get()->getUserGroupById($id);
 
 			try {
-				$groups = $this->userManager->get()->getGroups();
+				$groups = $this->userManager->get()->getUserGroups();
 				foreach ($groups as $group) {
 					$group->setDefault($group->getId() === $newDefaultGroup->getId());
 				}
@@ -143,7 +137,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 			->setRequired('Zadejte název skupiny uživatel');
 
 		$roles = [];
-		foreach ($this->userManager->get()->getRoles() as $role) {
+		foreach ($this->userManager->get()->getUserRoles() as $role) {
 			$roles[$role->getId()] = $role->getName();
 		}
 
@@ -159,7 +153,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 
 				foreach ($values->roles as $roleId) {
 					$role = $this->userManager->get()->getRoleById($roleId);
-					$group->addPermissionRole($role);
+					$group->addRole($role);
 				}
 
 				$this->entityManager->flush($group);
@@ -194,12 +188,12 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 
 
 		$roles = [];
-		foreach ($this->userManager->get()->getRoles() as $role) {
+		foreach ($this->userManager->get()->getUserRoles() as $role) {
 			$roles[$role->getId()] = $role->getName();
 		}
 
 		$activeRoles = [];
-		foreach ($this->editedUserGroup->getPermissionRoles() as $role) {
+		foreach ($this->editedUserGroup->getRoles() as $role) {
 			$activeRoles[] = $role->getId();
 		}
 
@@ -213,8 +207,8 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 				$group = $this->editedUserGroup;
 				$group->setName($values->name);
 
-				foreach ($group->getPermissionRoles() as $r) {
-					$group->removePermissionRole($r);
+				foreach ($group->getRoles() as $r) {
+					$group->removeRole($r);
 				}
 
 				$this->entityManager->flush($group);
@@ -222,7 +216,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 				foreach ($values->roles as $roleId) {
 					try {
 						$role = $this->userManager->get()->getRoleById($roleId);
-						$group->addPermissionRole($role);
+						$group->addRole($role);
 					} catch (NoResultException|NonUniqueResultException $e) {
 						$this->flashMessage('Některé role se nepodařilo přiřadit ke skupině.', 'warning');
 					}

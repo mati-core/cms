@@ -29,6 +29,7 @@
 	{block head}{/block}
 
 	<script src="{$basePath}/assets/cms/js/vue/vue.min.js"></script>
+	<script src="{$basePath}/assets/cms/js/vue/components.js"></script>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="{$basePath}/assets/cms/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/{$basePath}assets/cms/favicon/favicon-32x32.png">
@@ -43,7 +44,7 @@
 {block body}
 	<body class="hold-transition sidebar-mini">
 
-	{block modal}{/block}
+	{block modals}{/block}
 
 	<div class="wraper">
 		{include navbar}
@@ -61,6 +62,7 @@
 	<script src="{$basePath}/assets/cms/plugin/nette/main.js"></script>
 
 	{block scripts}{/block}
+    {block vueScripts}{/block}
 
 	</body>
 {/block}
@@ -242,50 +244,52 @@
 				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
 					data-accordion="false">
 					{foreach $cmsMenu as $menu}
-						{if $menu->getTitle() !== null}
-							<li class="nav-header">{_$menu->getTitle()}</li>
-						{/if}
-						{foreach $menu->getItems() as $menuItem}
-							{if $presenter->checkAccess($menuItem->getRight())}
-								<li n:class="nav-item, $menuItem->hasChildren() ? has-treeview, $presenter->isMenuItemActive($menuItem) ? menu-open">
-									<a href="{if $menuItem->getRoute() !== null}{plink $menuItem->getRoute()}{else}#{/if}" n:class="nav-link, $presenter->isMenuItemActive($menuItem) ? active">
-										<i n:if="$menuItem->getIcon() !== null"
-												class="nav-icon {$menuItem->getIcon()}"></i>
-										<p>
-											{_$menuItem->getTitle()}
-											{if $menuItem->getBadgeHandler() !== null}
-												{var $badge = $menuItem->getBadgeHandler()->getBadge()}
-												{if is_array($badge)}
-													<span n:foreach="$badge as $b" n:class="right, badge, $b->getColor()">{$b->getValue()}</span>
-												{elseif $badge !== null}
-													<span n:class="right, badge, $badge->getColor()">{$badge->getValue()}</span>
-												{/if}
-											{/if}
-										</p>
-									</a>
-									<ul n:if="$menuItem->hasChildren()" class="nav nav-treeview">
-										<li n:foreach="$menuItem->getChildren() as $childItem" n:if="$presenter->checkAccess($childItem->getRight())"
-												class="nav-item">
-											<a href="{if $childItem->getRoute() !== null}{plink $childItem->getRoute()}{else}#{/if}" n:class="nav-link, $presenter->isMenuItemActive($childItem) ? active">
-												<i n:if="$childItem->getIcon() !== null"
-														class="nav-icon {$childItem->getIcon()}"></i>
-												<p>
-													{_$childItem->getTitle()}
-                                                        {if $childItem->getBadgeHandler() !== null}
-														{var $badge = $childItem->getBadgeHandler()->getBadge()}
-														{if is_array($badge)}
-															<span n:foreach="$badge as $b" n:class="right, badge, $b->getColor()">{$b->getValue()}</span>
-														{elseif $badge !== null}
-															<span n:class="right, badge, $badge->getColor()">{$badge->getValue()}</span>
-														{/if}
-													{/if}
-												</p>
-											</a>
-										</li>
-									</ul>
-								</li>
+						{if $menu->getRight() === null || $presenter->checkAccess($menu->getRight())}
+							{if $menu->getTitle() !== null}
+								<li class="nav-header">{_$menu->getTitle()}</li>
 							{/if}
-						{/foreach}
+							{foreach $menu->getItems() as $menuItem}
+								{if $presenter->checkAccess($menuItem->getRight())}
+									<li n:class="nav-item, $menuItem->hasChildren() ? has-treeview, $presenter->isMenuItemActive($menuItem) ? menu-open">
+										<a href="{if $menuItem->getRoute() !== null}{plink $menuItem->getRoute()}{else}#{/if}" n:class="nav-link, $presenter->isMenuItemActive($menuItem) ? active">
+											<i n:if="$menuItem->getIcon() !== null"
+													class="nav-icon {$menuItem->getIcon()}"></i>
+											<p>
+												{_$menuItem->getTitle()}
+												{if $menuItem->getBadgeHandler() !== null}
+													{var $badge = $menuItem->getBadgeHandler()->getBadge()}
+													{if is_array($badge)}
+														<span n:foreach="$badge as $b" n:class="right, badge, $b->getColor()">{$b->getValue()}</span>
+													{elseif $badge !== null}
+														<span n:class="right, badge, $badge->getColor()">{$badge->getValue()}</span>
+													{/if}
+												{/if}
+											</p>
+										</a>
+										<ul n:if="$menuItem->hasChildren()" class="nav nav-treeview">
+											<li n:foreach="$menuItem->getChildren() as $childItem" n:if="$presenter->checkAccess($childItem->getRight())"
+													class="nav-item">
+												<a href="{if $childItem->getRoute() !== null}{plink $childItem->getRoute()}{else}#{/if}" n:class="nav-link, $presenter->isMenuItemActive($childItem) ? active">
+													<i n:if="$childItem->getIcon() !== null"
+															class="nav-icon {$childItem->getIcon()}"></i>
+													<p>
+														{_$childItem->getTitle()}
+															{if $childItem->getBadgeHandler() !== null}
+															{var $badge = $childItem->getBadgeHandler()->getBadge()}
+															{if is_array($badge)}
+																<span n:foreach="$badge as $b" n:class="right, badge, $b->getColor()">{$b->getValue()}</span>
+															{elseif $badge !== null}
+																<span n:class="right, badge, $badge->getColor()">{$badge->getValue()}</span>
+															{/if}
+														{/if}
+													</p>
+												</a>
+											</li>
+										</ul>
+									</li>
+								{/if}
+							{/foreach}
+						{/if}
 					{/foreach}
 				</ul>
 			</nav>
@@ -344,7 +348,7 @@
 		</section>
 
 		<!-- Main content -->
-		<section class="content ml-2 mr-2">
+		<section class="content ml-2 mr-2" id="app">
 			{include content}
 		</section>
 		<!-- /.content -->
@@ -355,7 +359,7 @@
 {define footer}
 	<footer class="main-footer">
 		<div class="float-right d-none d-sm-block">
-			<b>Version</b> {\MatiCore\Cms\CmsHelper::CMS_VERSION}
+			<b>{_cms.main.version}</b> {\MatiCore\Cms\CmsHelper::CMS_VERSION}
 		</div>
 		<strong>Copyright &copy; 2019 - {date('Y')} <a href="https://web.satraglobal.cz">Satra Global, s.r.o.</a></strong> All rights
 		reserved.
