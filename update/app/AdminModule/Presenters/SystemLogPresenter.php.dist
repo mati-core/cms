@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\AdminModule\Presenters;
+
+use MatiCore\Form\FormFactoryTrait;
+use Nette\Forms\Form;
+use Nette\Utils\ArrayHash;
+
+/**
+ * Class SystemLogPresenter
+ * @package App\AdminModule\Presenters
+ */
+final class SystemLogPresenter extends SystemLogInnerPackagePresenter
+{
+	
+}

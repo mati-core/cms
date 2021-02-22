@@ -1,0 +1,79 @@
+<div n:if="$show === true" class="col-12 col-md-6">
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-12 col-xl-2 text-center pt-2">
+					<img src="{$basePath}/assets/cms/img/logo.svg" class="img-avatar-sm" alt="logo">
+				</div>
+				<div class="col-12 col-xl-7">
+					<table>
+						<tr>
+							<td class="pr-3">
+								Stav systému:
+							</td>
+							<td>
+								{if $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_OK}
+									<span class="text-success">V pořádku</span>
+								{elseif $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_UPDATE}
+									<span class="text-info">Je k dispozici nová aktualizace</span>
+								{elseif $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_WARNING}
+									<span class="text-orange">Uspokojivý</span>
+								{elseif $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_CRITICAL}
+									<span class="text-danger">Kritický <small>(kontaktujte podporu)</small></span>
+								{else}
+									<span class="text-danger">Kritický <small>(narušena integrita systému)</small></span>
+								{/if}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Verze:
+							</td>
+							<td>
+								{$systemVersion} <small>(
+								{if $systemUpdateAvailable === null}
+									<span class="text-success">aktuální</span>
+								{else}
+									<span class="text-info">{$systemUpdateAvailable}</span>
+								{/if}
+									)</small>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Datum vydání:
+							</td>
+							<td>
+								{$systemVersionDate|date:'d.m.Y'}
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-12 col-xl-3 text-right pt-4">
+					{if $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_OK}
+						<a href="mailto:olmr@satraglobal.cz" class="btn btn-sm btn-block btn-outline-success">
+							<i class="fas fa-check fa-fw"></i>&nbsp;V pořádku
+						</a>
+					{elseif $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_UPDATE}
+						<a href="mailto:olmr@satraglobal.cz" class="btn btn-sm btn-block btn-outline-info">
+							<i class="fas fa-sync fa-fw"></i>&nbsp;Aktualizovat
+						</a>
+					{elseif $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_WARNING}
+						<a href="mailto:olmr@satraglobal.cz" class="btn btn-sm btn-block btn-warning">
+							<i class="fas fa-wrench fa-fw"></i>&nbsp;Objednat údržbu
+						</a>
+					{elseif $systemStatus === \MatiCore\Cms\CmsHelper::CMS_STATUS_CRITICAL}
+						<a href="mailto:olmr@satraglobal.cz" class="btn btn-sm btn-block btn-danger">
+							<i class="fas fa-wrench fa-fw"></i>&nbsp;Objednat údržbu
+						</a>
+					{else}
+						<a href="mailto:olmr@satraglobal.cz" class="btn btn-sm btn-block btn-danger">
+							<i class="fas fa-wrench fa-fw"></i>&nbsp;Objednat údržbu
+						</a>
+					{/if}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

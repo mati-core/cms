@@ -11,6 +11,7 @@ use Doctrine\ORM\NoResultException;
 use MatiCore\Form\FormFactoryTrait;
 use MatiCore\User\UserGroup;
 use MatiCore\User\UserManagerAccessor;
+use MatiCore\User\UserRole;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
@@ -23,6 +24,11 @@ use Tracy\Debugger;
  */
 class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 {
+
+	/**
+	 * @var string
+	 */
+	protected $pageRight = 'cms__users__groups';
 
 	use FormFactoryTrait;
 
@@ -48,7 +54,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 	public function actionAccess(string $id): void
 	{
 		try {
-			$this->editedUserGroup = $this->userManager->get()->getGroupById($id);
+			$this->editedUserGroup = $this->userManager->get()->getUserGroupById($id);
 			$this->template->group = $this->editedUserGroup;
 			$this->template->roles = $this->userManager->get()->getUserRoles();
 		} catch (NoResultException|NonUniqueResultException $e) {

@@ -1,0 +1,30 @@
+{block title}
+	{_cms.menu.settings.systemLog.title}
+{/block}
+
+{block pageTitle}
+	<h1>{_cms.menu.settings.systemLog.title}</h1>
+{/block}
+
+{block vueScripts}
+	<script src="{$basePath}/assets/cms/js/vue/init.js"></script>
+{/block}
+
+{block breadcrumb}
+	<li class="breadcrumb-item">
+		<a n:href=":Admin:Homepage:default">
+			<i class="fas fa-tachometer-alt"></i>
+		</a>
+	</li>
+	<li class="breadcrumb-item active">
+		<i class="fas fa-bug"></i>&nbsp;{_cms.menu.settings.systemLog.title}
+	</li>
+{/block}
+
+{block content}
+	<div class="row">
+		<div class="col text-center">
+			<h3 class="text-danger">{_cms.systemLog.notFound}</h3>
+		</div>
+	</div>
+{/block}

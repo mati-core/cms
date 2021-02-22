@@ -1,0 +1,129 @@
+{block title}
+	{_cms.menu.settings.systemLog.title}
+{/block}
+
+{block pageTitle}
+	<h1>{_cms.menu.settings.systemLog.title}</h1>
+{/block}
+
+{block vueScripts}
+	<script src="{$basePath}/assets/cms/js/vue/init.js"></script>
+{/block}
+
+{block breadcrumb}
+	<li class="breadcrumb-item">
+		<a n:href=":Admin:Homepage:default">
+			<i class="fas fa-tachometer-alt"></i>
+		</a>
+	</li>
+	<li class="breadcrumb-item active">
+		<i class="fas fa-bug"></i>&nbsp;{_cms.menu.settings.systemLog.title}
+	</li>
+{/block}
+
+{block content}
+	{snippet pageContent}
+	<div class="row">
+		<div class="col-12 col-sm-6 col-md-3">
+			<div class="info-box">
+				<span n:class="info-box-icon, count($criticalErrors) > 0 ? bg-danger : bg-white"><i
+							class="far fa-bug"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">{_cms.systemLog.criticalError}</span>
+					<span class="info-box-number">{count($criticalErrors)}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+		</div>
+		<div class="col-12 col-sm-6 col-md-3">
+			<div class="info-box">
+				<span n:class="info-box-icon, count($exceptionErrors) > 0 ? bg-danger : bg-white"><i
+							class="far fa-bomb"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">{_cms.systemLog.exceptionError}</span>
+					<span class="info-box-number">{count($exceptionErrors)}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+		</div>
+		<div class="col-12 col-sm-6 col-md-3">
+			<div class="info-box">
+				<span n:class="info-box-icon, count($warningErrors) > 0 ? bg-warning : bg-white"><i
+							class="far fa-exclamation-triangle"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">{_cms.systemLog.warningError}</span>
+					<span class="info-box-number">{count($warningErrors)}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+		</div>
+		<div class="col-12 col-sm-6 col-md-3">
+			<div class="info-box">
+				<span n:class="info-box-icon, count($infoErrors) > 0 ? bg-info : bg-white"><i
+							class="far fa-comment-dots"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">{_cms.systemLog.infoError}</span>
+					<span class="info-box-number">{count($infoErrors)}</span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<div class="card card-primary">
+				<div class="card-body p-0">
+					<div class="row">
+						<div class="col">
+							<table class="table table-hover">
+								{if $logCount > 0}
+								<tr n:foreach="$criticalErrors as $error">
+									{include errorRow, $error, 'criticalError'}
+								</tr>
+								<tr n:foreach="$exceptionErrors as $error">
+									{include errorRow, $error, 'exceptionError'}
+								</tr>
+								<tr n:foreach="$warningErrors as $error">
+									{include errorRow, $error, 'warningError'}
+								</tr>
+								<tr n:foreach="$infoErrors as $error">
+									{include errorRow, $error, 'infoError'}
+								</tr>
+								{else}
+								<tr>
+									<td class="text-center">
+										{_cms.systemLog.noItems}
+									</td>
+								</tr>
+								{/if}
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{/snippet}
+{/block}
+
+{define errorRow, $error, $type}
+	<td class="auto-width">{$error['date']|date:'Y-m-d H:i'}</td>
+	<td class="auto-width">
+		<span n:class="badge, $type === 'criticalError' ? badge-info, $type === 'exceptionError' ? badge-info, $type === 'warningError' ? badge-info, $type === 'infoError' ? badge-info">{_'cms.systemLog.' . $type}</span>
+	</td>
+	<td class="text-bold">{$error['title']|stripHtml|truncate:100}</td>
+	<td class="auto-width text-right">{$error['hash']}</td>
+	<td class="text-right">
+		<a n:href="SystemLog:show, hash => $error['hash']" target="_blank" class="btn btn-info btn-xs">
+			<i class="fas fa-eye"></i>&nbsp;{_cms.main.show}
+		</a>
+		<a n:href="delete!, hash => $error['hash']" class="btn btn-danger btn-xs ajax">
+			<i class="fas fa-trash"></i>&nbsp;{_cms.main.delete}
+		</a>
+	</td>
+{/define}

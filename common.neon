@@ -55,3 +55,21 @@ parameters:
 							position: 0
 							rights:
 								- cms__users__roles
+				systemLog:
+					title: cms.menu.settings.systemLog.title
+					icon: 'fas fa-bug'
+					route: ':Admin:SystemLog:default'
+					position: 20
+					badgeHandler: cmsSystemLogBadgeHandler
+					rights:
+						- super-admin
+
+services:
+	- MatiCore\Cms\Dashboard\SystemStatusDashboardBlockControl
+	navControl:
+	 	factory: MatiCore\Cms\Nav\NavControl
+	dashboardControl:
+	 	factory: MatiCore\Cms\Dashboard\DashboardControl
+	 	setup:
+	 		- addBlock(@MatiCore\Cms\Dashboard\SystemStatusDashboardBlockControl, 100)
+	cmsSystemLogBadgeHandler: MatiCore\Cms\SystemLogBadgeHandler

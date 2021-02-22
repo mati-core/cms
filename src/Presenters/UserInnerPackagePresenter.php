@@ -11,6 +11,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MatiCore\Form\FormFactoryTrait;
 use MatiCore\User\BaseUser;
+use MatiCore\User\IUser;
 use MatiCore\User\UserPassword;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
@@ -23,10 +24,15 @@ use Tracy\Debugger;
 class UserInnerPackagePresenter extends BaseAdminPresenter
 {
 
+	/**
+	 * @var string
+	 */
+	protected $pageRight = 'cms__users__accounts';
+
 	use FormFactoryTrait;
 
 	/**
-	 * @var User|null
+	 * @var BaseUser|IUser|null
 	 */
 	private $editedUser;
 

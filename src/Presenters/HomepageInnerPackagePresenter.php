@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\AdminModule\Presenters;
 
+use MatiCore\Cms\Dashboard\DashboardControl;
+
 /**
  * Class HomepagePresenter
  * @package App\AdminModule\Presenters
@@ -12,11 +14,17 @@ class HomepageInnerPackagePresenter extends BaseAdminPresenter
 {
 
 	/**
-	 *
+	 * @var DashboardControl
+	 * @inject
 	 */
-	public function actionDefault(): void
+	public $dashboardControl;
+
+	/**
+	 * @return DashboardControl
+	 */
+	public function createComponentDashboard(): DashboardControl
 	{
-		bdump($this->checkAccess('test'));
+		return $this->dashboardControl;
 	}
 
 }

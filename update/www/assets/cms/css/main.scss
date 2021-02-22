@@ -1,3 +1,9 @@
+$avatar-sm: 64px;
+$avatar-md: 128px;
+$avatar-lg: 256px;
+
+$supportLogoSize: 128px;
+
 .nav-link{
   .user-image{
     height: 30px;
@@ -6,12 +12,27 @@
   }
 }
 
-.img-avatar-64{
-  max-width: 64px;
-  max-height: 64px;
+.img-avatar-sm{
+  max-width: $avatar-sm;
+  max-height: $avatar-sm;
 }
 
-.img-avatar-128{
-  max-width: 64px;
-  max-height: 64px;
+.img-avatar-md{
+  max-width: $avatar-md;
+  max-height: $avatar-md;
+}
+
+.img-avatar-lg{
+  max-width: $avatar-lg;
+  max-height: $avatar-lg;
+}
+
+.support-logo{
+  width: $supportLogoSize;
+  height: $supportLogoSize;
+}
+
+td.auto-width{
+  width: 1px;
+  white-space: nowrap;
 }

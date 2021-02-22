@@ -7,7 +7,10 @@ namespace App\AdminModule\Presenters;
 
 use App\Presenters\BasePresenter;
 use Baraja\Doctrine\EntityManager;
+use MatiCore\Cms\Nav\NavControl;
 use MatiCore\Menu\MenuPresenterTrait;
+use MatiCore\User\BaseUser;
+use MatiCore\User\StorageIdentity;
 use MatiCore\User\UserPresenterAccessTrait;
 
 /**
@@ -23,6 +26,12 @@ class BaseAdminInnerPackagePresenter extends BasePresenter
 	protected $pageRight = 'cms';
 
 	/**
+	 * @var NavControl
+	 * @inject
+	 */
+	public $navControl;
+
+	/**
 	 * @var EntityManager
 	 * @inject
 	 */
@@ -34,8 +43,20 @@ class BaseAdminInnerPackagePresenter extends BasePresenter
 
 	public function beforeRender()
 	{
-		$this->template->user = $this->getUser()->getIdentity()?->getUser();
+		if($this->getUser()->getIdentity() !== null && $this->getUser()->getIdentity() instanceof StorageIdentity){
+			$this->template->user = $this->getUser()->getIdentity()?->getUser();
+		}else{
+			$this->template->user = null;
+		}
 		$this->template->cmsMenu = $this->getMenuListByGroup('cms-main');
+	}
+
+	/**
+	 * @return NavControl
+	 */
+	public function createComponentNav(): NavControl
+	{
+		return $this->navControl;
 	}
 
 }

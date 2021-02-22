@@ -6,6 +6,8 @@ main:
 	back: Back
 	confirm: Confirm
 	cancel: Cancel
+	show: Show
+	hide: Hide
 	adminTitle: Administration
 	active: Active
 	inactive: Inactive
@@ -23,6 +25,8 @@ menu:
 			accounts: Accounts
 			groups: Groups
 			roles: Roles
+		systemLog:
+			title: System logs
 profile:
 	title: My profile
 	passwordChange: Change password
@@ -57,3 +61,12 @@ users:
 login:
 	title: Administration entry
 	forgot_password: I forgot my password
+systemLog:
+	criticalError: Critical error
+	exceptionError: Exception
+	warningError: Warning
+	infoError: Info
+	notFound: Log not found.
+	noItems: No logs in system.
+error:
+	headerSend: Headers was send!

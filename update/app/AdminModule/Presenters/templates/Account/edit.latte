@@ -63,9 +63,9 @@
 									{foreach $form[avatar]->items as $key => $label}
 										<div class="col">
 											{if $label === 'Gravatar'}
-												<img src="{$basePath}{$user?->getGravatarIcon('/avatar/gravatar.png')}" class="img-circle img-avatar-64" alt="gravatar">
+												<img src="{$basePath}{$user?->getGravatarIcon('/avatar/gravatar.png')}" class="img-circle img-avatar-sm" alt="gravatar">
 											{else}
-												<img src="{$basePath}/assets/img/user/avatar/avatar_{$key}.png" class="img-circle img-avatar-64" alt="man {$key}">
+												<img src="{$basePath}/assets/img/user/avatar/avatar_{$key}.png" class="img-circle img-avatar-sm" alt="man {$key}">
 											{/if}
 											<br>
 											<small>{$label}</small>

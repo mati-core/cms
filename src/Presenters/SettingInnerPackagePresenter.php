@@ -24,6 +24,11 @@ use Tracy\Debugger;
 class SettingInnerPackagePresenter extends BaseAdminPresenter
 {
 
+	/**
+	 * @var string
+	 */
+	protected $pageRight = 'cms__settings';
+
 	use FormFactoryTrait;
 
 }

@@ -22,6 +22,11 @@ use Tracy\Debugger;
 class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 {
 
+	/**
+	 * @var string
+	 */
+	protected $pageRight = 'cms__users__roles';
+
 	use FormFactoryTrait;
 
 	/**

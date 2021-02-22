@@ -6,6 +6,8 @@ main:
 	back: Zpět
 	confirm: Potvrdit
 	cancel: Zrušit
+	show: Zobrazit
+	hide: Skrýt
 	adminTitle: Administrace
 	active: Aktivní
 	inactive: Neaktivní
@@ -23,6 +25,8 @@ menu:
 			accounts: Účty
 			groups: Skupiny
 			roles: Role
+		systemLog:
+			title: Systémové logy
 profile:
 	title: Můj profil
 	passwordChange: Změnit heslo
@@ -57,3 +61,12 @@ users:
 login:
 	title: Vstup do administrace
 	forgot_password: Zapomenuté heslo
+systemLog:
+	criticalError: Kritická chyba
+	exceptionError: Vyjímka
+	warningError: Upozornění
+	infoError: Info
+	notFound: Požadovaný log nenalezen.
+	noItems: Nejsou evidovány žádné logy.
+error:
+	headerSend: Hlavičky byly již odeslány!
