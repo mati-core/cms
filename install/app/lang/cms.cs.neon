@@ -1,0 +1,72 @@
+main:
+	add: Přidat
+	save: Uložit
+	edit: Upravit
+	delete: Smazat
+	back: Zpět
+	confirm: Potvrdit
+	cancel: Zrušit
+	show: Zobrazit
+	hide: Skrýt
+	adminTitle: Administrace
+	active: Aktivní
+	inactive: Neaktivní
+	name: Název
+	description: Popis
+	access: Oprávnění
+	version: Verze
+menu:
+	dashboard: Dashboard
+	settings:
+		title: Nastavení
+		mainSetting: Základní nastavení
+		users:
+			title: Uživatelé
+			accounts: Účty
+			groups: Skupiny
+			roles: Role
+		systemLog:
+			title: Systémové logy
+profile:
+	title: Můj profil
+	passwordChange: Změnit heslo
+	firstName: Jméno
+	lastName: Příjmení
+	fullName: Jméno
+	namePrefix: Tituly před jménem
+	nameSuffix: Tituly za jménem
+	email: E-mail
+	phone: Telefon
+	ipAddress: IP adresa
+	lastLogin: Poslední přihlášení
+	device: Zařízení
+	sign_out: Odhlásit se
+	support: Podpora
+	password: Heslo
+	passwordNew: Nové heslo
+	passwordConfirm: 'Nové heslo (znovu)'
+	passwordChangeSuccess: Heslo bylo změněno.
+	passwordChangeErrorEqual: Hesla nejsou stejná.
+users:
+	list: Seznam uživatelů
+	newAccount: Nový účet
+	editAccount: Editace účtu
+	group: Skupina
+	groups: Skupiny uživatelů
+	groupEdit: Editace skupiny
+	role: Role
+	roleTitle: Role uživatelů
+	roleNewTitle: Nová role
+	roleEditTitle: Editace role
+login:
+	title: Vstup do administrace
+	forgot_password: Zapomenuté heslo
+systemLog:
+	criticalError: Kritická chyba
+	exceptionError: Vyjímka
+	warningError: Upozornění
+	infoError: Info
+	notFound: Požadovaný log nenalezen.
+	noItems: Nejsou evidovány žádné logy.
+error:
+	headerSend: Hlavičky byly již odeslány!

@@ -41,14 +41,19 @@ class CmsHelper
 
 			if ($logDir !== null && is_dir($logDir)) {
 				foreach (Finder::findFiles('*.html')->in($logDir) as $file) {
-					if ($match['type'] === 'critical') {
-						$criticalErrorsCount++;
-					} elseif ($match['type'] === 'exception') {
-						$exceptionErrorsCount++;
-					} elseif ($match['type'] === 'warning') {
-						$warningErrorsCount++;
-					} else {
-						$infoErrorsCount++;
+					if (
+						preg_match('/^.*\/(?<type>[a-z]+)--(?<date>\d{4}-\d{2}-\d{2})--(?<time>\d{2}-\d{2})--(?<hash>\w+)\.html$/', (string) $file, $match)
+						&& isset($match['type'], $match['date'], $match['time'], $match['hash'])
+					) {
+						if ($match['type'] === 'critical') {
+							$criticalErrorsCount++;
+						} elseif ($match['type'] === 'exception') {
+							$exceptionErrorsCount++;
+						} elseif ($match['type'] === 'warning') {
+							$warningErrorsCount++;
+						} else {
+							$infoErrorsCount++;
+						}
 					}
 				}
 			}

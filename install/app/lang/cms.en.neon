@@ -1,0 +1,72 @@
+main:
+	add: Add
+	save: Save
+	edit: Edit
+	delete: Delete
+	back: Back
+	confirm: Confirm
+	cancel: Cancel
+	show: Show
+	hide: Hide
+	adminTitle: Administration
+	active: Active
+	inactive: Inactive
+	name: Name
+	description: Description
+	access: Access
+	version: Version
+menu:
+	dashboard: Dashboard
+	settings:
+		title: Settings
+		mainSetting: Main Settings
+		users:
+			title: Users
+			accounts: Accounts
+			groups: Groups
+			roles: Roles
+		systemLog:
+			title: System logs
+profile:
+	title: My profile
+	passwordChange: Change password
+	firstname: Firstname
+	lastName: Lastname
+	fullName: Fullname
+	namePrefix: Titles before the name
+	nameSuffix: Titles after name
+	email: E-mail
+	phone: Phone
+	ipAddress: IP address
+	lastLogin: Last login
+	device: Device
+	sign_out: Sign out
+	support: Support
+	password: Password
+	passwordNew: New password
+	passwordConfirm: Confirm new password
+	passwordChangeSuccess: Password was changed.
+	passwordChangeErrorEqual: Password must be equal.
+users:
+	list: User accounts
+	newAccount: New account
+	editAccount: Edit account
+	group: Group
+	groups: User groups
+	groupEdit: Edit group
+	role: Role
+	roleTitle: User roles
+	roleNewTitle: New role
+	roleEditTitle: Edit role
+login:
+	title: Administration entry
+	forgot_password: I forgot my password
+systemLog:
+	criticalError: Critical error
+	exceptionError: Exception
+	warningError: Warning
+	infoError: Info
+	notFound: Log not found.
+	noItems: No logs in system.
+error:
+	headerSend: Headers was send!

@@ -4,6 +4,7 @@ namespace MatiCore\Cms\Dashboard;
 
 
 use Nette\Application\UI\Control;
+use Nette\Application\UI\Template;
 use Nette\ComponentModel\IComponent;
 
 class DashboardControl extends Control
@@ -18,14 +19,16 @@ class DashboardControl extends Control
 	{
 		$this->sortBlocks();
 
+		/** @var Template $template */
 		$template = $this->template;
-		$this->template->dashboardBlocks = [];
+		$template->dashboardBlocks = [];
 
 		foreach ($this->blocks as $block) {
-			$this->template->dashboardBlocks[] = $block['control']->getBlockName();
+			$template->dashboardBlocks[] = $block['control']->getBlockName();
 		}
 
-		$this->template->render(__DIR__ . '/default.latte');
+		$template->setFile(__DIR__ . '/default.latte');
+		$template->render();
 	}
 
 	/**

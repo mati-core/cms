@@ -44,6 +44,7 @@ class DashboardBlockControl extends Control
 
 		$show = false;
 		if ($presenter !== null) {
+
 			$show = $presenter->checkAccess($this->right);
 		}
 
