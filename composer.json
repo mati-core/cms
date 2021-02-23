@@ -26,7 +26,11 @@
 		"phpstan/phpstan": "^0.12",
 		"phpstan/phpstan-nette": "^0.12.6",
 		"mati-core/user": "dev-main",
-		"mati-core/menu": "dev-master"
+		"mati-core/menu": "dev-master",
+		"mati-core/constant": "dev-master",
+		"mati-core/email": "dev-master",
+		"mati-core/datagrid": "dev-master",
+		"mati-core/form": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
