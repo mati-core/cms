@@ -1,9 +1,10 @@
 # Mati-Core  | CMS
 
-[![Downloads this Month](https://img.shields.io/packagist/dm/mati-core/cms.svg)](https://packagist.org/packages/mati-core/cms)
-[![Build Status Windows](https://ci.appveyor.com/api/projects/status/github/mati-core/cms?branch=main&svg=true)](https://ci.appveyor.com/project/dg/tracy/branch/master)
-[![Latest Stable Version](https://poser.pugx.org/mati-core/cms/v/stable)](https://github.com/mati-core/cms/releases)
-[![License](https://img.shields.io/badge/license-MIT-yellow.svg)](https://github.com/mati-core/cms/blob/master/license.md)
+[![Latest Stable Version](https://poser.pugx.org/mati-core/cms/v)](//packagist.org/packages/mati-core/cms)
+[![Total Downloads](https://poser.pugx.org/mati-core/cms/downloads)](//packagist.org/packages/mati-core/cms)
+![Integrity check](https://github.com/mati-core/cms/workflows/Integrity%20check/badge.svg)
+[![Latest Unstable Version](https://poser.pugx.org/mati-core/cms/v/unstable)](//packagist.org/packages/mati-core/cms)
+[![License](https://poser.pugx.org/mati-core/cms/license)](//packagist.org/packages/mati-core/cms)
 
 Install
 -------
