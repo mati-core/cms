@@ -11,7 +11,6 @@ parameters:
 					icon: 'fas fa-tachometer-alt'
 					route: ':Admin:Homepage:default'
 					position: 0
-					#badgeHandler: cmsDashboardBadgeHandler
 					rights:
 						- cms
 		cmsMainSetting:
