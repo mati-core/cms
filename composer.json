@@ -19,11 +19,12 @@
 		"nette/bootstrap": "^3.0",
 		"baraja-core/package-manager": "~2.0",
 		"baraja-core/doctrine": "~3.0",
+		"contributte/translation": "^0.8.3",
 		"mati-core/datagrid": "^1.0",
 		"mati-core/form": "^1.0",
 		"mati-core/menu": "^1.0",
 		"mati-core/user": "^1.0",
-		"mati-core/constant": "^1.0",
+		"mati-core/constant": "^1.0.1",
 		"mati-core/email": "^1.0"
 	},
 	"require-dev": {

@@ -1,0 +1,32 @@
+.nav-link .user-image {
+  height: 30px;
+  width: 30px;
+  margin: -5px 5px 0 0;
+}
+
+.img-avatar-sm {
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.img-avatar-md {
+  max-width: 128px;
+  max-height: 128px;
+}
+
+.img-avatar-lg {
+  max-width: 256px;
+  max-height: 256px;
+}
+
+.support-logo {
+  width: 128px;
+  height: 128px;
+}
+
+td.auto-width {
+  width: 1px;
+  white-space: nowrap;
+}
+
+/*# sourceMappingURL=main.css.map */
