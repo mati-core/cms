@@ -141,7 +141,7 @@ class UserInnerPackagePresenter extends BaseAdminPresenter
 				$userEntity = $this->userManager->get()->getUserEntityName();
 
 				/** @var BaseUser $user */
-				$user = new $userEntity($group, $values->email, $values->password);
+				$user = new $userEntity($group, $values->email, UserPassword::hash($values->password));
 				$user->setEmail($values->email);
 				$user->setActive($values->active ? true : false);
 				$user->setPhone($values->phone !== '' ? $values->phone : null);
