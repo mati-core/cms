@@ -23,14 +23,9 @@ class FontAwesomeKitControl extends Control
 	/**
 	 * FontAwesomeKitControl constructor.
 	 * @param array<null|string> $config
-	 * @throws FontAwesomeKitException
 	 */
 	public function __construct(array $config)
 	{
-		if (!isset($config['kitId'], $config['css'], $config['js'])) {
-			throw new FontAwesomeKitException('Font Awesome Kit - bad configuration! ');
-		}
-
 		$this->config = $config;
 	}
 
@@ -39,19 +34,23 @@ class FontAwesomeKitControl extends Control
 	 */
 	public function render(): void
 	{
+		$kitId = $this->config['kitId'] ?? null;
+		$cssUrl = $this->config['css'] ?? null;
+		$jsUrl = $this->config['js'] ?? null;
+
 		if (
-			$this->config['kitId'] === null
-			&& $this->config['css'] === null
-			&& $this->config['js'] === null
+			$kitId === null
+			&& $cssUrl === null
+			&& $jsUrl === null
 		) {
-			throw new FontAwesomeKitException('Font Awesome Kit ID doesn\'t set! ');
+			throw new FontAwesomeKitException('Font Awesome Kit ID doesn\'t set!');
 		}
 
 		/** @var Template $template */
 		$template = $this->template;
-		$template->kitId = $this->config['kitId'];
-		$template->cssUrl = $this->config['css'];
-		$template->jsUrl = $this->config['js'];
+		$template->kitId = $kitId;
+		$template->cssUrl = $cssUrl;
+		$template->jsUrl = $jsUrl;
 		$template->setFile(__DIR__ . '/default.latte');
 		$template->render();
 	}
