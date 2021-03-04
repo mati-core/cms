@@ -16,17 +16,22 @@ class FontAwesomeKitControl extends Control
 {
 
 	/**
-	 * @var string|null
+	 * @var array<string|null>
 	 */
-	private string|null $faviconPackId;
+	private array $config;
 
 	/**
-	 * FaviconControl constructor.
-	 * @param string $faviconPackId
+	 * FontAwesomeKitControl constructor.
+	 * @param array<null|string> $config
+	 * @throws FontAwesomeKitException
 	 */
-	public function __construct(string $faviconPackId)
+	public function __construct(array $config)
 	{
-		$this->faviconPackId = $faviconPackId;
+		if (!isset($config['kitId'], $config['css'], $config['js'])) {
+			throw new FontAwesomeKitException('Font Awesome Kit - bad configuration! ');
+		}
+
+		$this->config = $config;
 	}
 
 	/**
@@ -34,13 +39,19 @@ class FontAwesomeKitControl extends Control
 	 */
 	public function render(): void
 	{
-		if ($this->faviconPackId === null) {
+		if (
+			$this->config['kitId'] === null
+			&& $this->config['css'] === null
+			&& $this->config['js'] === null
+		) {
 			throw new FontAwesomeKitException('Font Awesome Kit ID doesn\'t set! ');
 		}
 
 		/** @var Template $template */
 		$template = $this->template;
-		$template->faviconPackId = $this->faviconPackId;
+		$template->kitId = $this->config['kitId'];
+		$template->cssUrl = $this->config['css'];
+		$template->jsUrl = $this->config['js'];
 		$template->setFile(__DIR__ . '/default.latte');
 		$template->render();
 	}
