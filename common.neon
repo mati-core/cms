@@ -1,9 +1,8 @@
 parameters:
-	cms:
-		fontAwesome:
-			kitId: null #insert kit ID from https://fontawesome.com/start <null|string>
-			css: null	#insert your fontawesome CSS url <null|string>
-			js: null	#insert your fontawesome JS url <null|string>
+	fontAwesome:
+		kitId: null #insert kit ID from https://fontawesome.com/start <null|string>
+		css: null	#insert your fontawesome CSS url <null|string>
+		js: null	#insert your fontawesome JS url <null|string>
 	menu:
 		cmsMainDefault:
 			group: cms-main
@@ -69,7 +68,7 @@ parameters:
 						- super-admin
 
 services:
-	- MatiCore\Cms\Components\FontAwesomeKitControl(%cms.faviconPackId%)
+	- MatiCore\Cms\Components\FontAwesomeKitControl(%fontAwesome%)
 	- MatiCore\Cms\Dashboard\SystemStatusDashboardBlockControl
 	navControl:
 	 	factory: MatiCore\Cms\Nav\NavControl
