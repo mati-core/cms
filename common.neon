@@ -1,4 +1,6 @@
 parameters:
+	cms:
+		faviconPackId: 33d83e483a
 	menu:
 		cmsMainDefault:
 			group: cms-main
@@ -64,6 +66,7 @@ parameters:
 						- super-admin
 
 services:
+	- MatiCore\Cms\Components\FontAwesomeKitControl(%cms%.%faviconPackId%)
 	- MatiCore\Cms\Dashboard\SystemStatusDashboardBlockControl
 	navControl:
 	 	factory: MatiCore\Cms\Nav\NavControl

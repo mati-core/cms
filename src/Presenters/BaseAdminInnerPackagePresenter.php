@@ -7,6 +7,7 @@ namespace App\AdminModule\Presenters;
 
 use App\Presenters\BasePresenter;
 use Baraja\Doctrine\EntityManager;
+use MatiCore\Cms\Components\FontAwesomeKit;
 use MatiCore\Cms\Nav\NavControl;
 use MatiCore\Menu\MenuPresenterTrait;
 use MatiCore\User\BaseUser;
@@ -40,6 +41,8 @@ class BaseAdminInnerPackagePresenter extends BasePresenter
 	use UserPresenterAccessTrait;
 	
 	use MenuPresenterTrait;
+
+	use FontAwesomeKit;
 
 	public function beforeRender()
 	{

@@ -8,6 +8,18 @@ Nette.toggle = function (id, visible) {
 	}
 };
 
+Nette.showFormErrors = function(form, errors){
+	for (let id = 0; id < errors.length; id++){
+		let element = errors[id].element;
+		let message = errors[id].message;
+
+		$(element).addClass('is-invalid');
+		//$(element).parent('div.form-group').children('div.invalid-feedback').html(message);
+	}
+
+	return !1;
+};
+
 //Form elements
 $(function () {
 	/*$('.select2').select2({
