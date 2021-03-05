@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace MatiCore\Cms;
 
+use Nette\IOException;
 use Nette\Utils\DateTime;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
@@ -72,7 +73,7 @@ class CmsHelper
 				|| $infoErrorsCount > 10
 			) {
 				$status = self::CMS_STATUS_WARNING;
-			} elseif (self::getAvaiableCMSUpdate() !== null) {
+			} elseif (self::getAvailableCMSUpdate() !== null) {
 				$status = self::CMS_STATUS_UPDATE;
 			} else {
 				$status = self::CMS_STATUS_OK;
@@ -113,9 +114,19 @@ class CmsHelper
 	/**
 	 * @return string|null
 	 */
-	public static function getAvaiableCMSUpdate(): ?string
+	public static function getAvailableCMSUpdate(): ?string
 	{
-		return null;
+		static $ret;
+
+		if ($ret === null) {
+			$packageData = self::getPackageData();
+
+			if ($packageData !== null && isset($packageData['version'])) {
+				$ret = str_replace('v', '', $packageData['version']);
+			}
+		}
+
+		return $ret;
 	}
 
 	/**
@@ -180,7 +191,7 @@ class CmsHelper
 
 	/**
 	 * @return array(array<string>|string)
-	 * @throws \Nette\Utils\JsonException
+	 * @throws JsonException
 	 */
 	public static function getComposerData(): array
 	{
@@ -192,6 +203,84 @@ class CmsHelper
 			FileSystem::read(__DIR__ . '/../../../../../composer.lock'),
 			Json::FORCE_ARRAY
 		);
+	}
+
+	/**
+	 * @return array|null
+	 * @throws \Exception
+	 */
+	public static function getPackageData(): ?array
+	{
+		static $ret;
+
+		if ($ret === null) {
+			$tempDir = __DIR__ . '/../../../../../temp';
+			$tempFile = $tempDir . '/packagist_maticore_cms.json';
+			if (is_dir($tempDir)) {
+				$data = null;
+
+				if (is_file($tempFile)) {
+					try {
+						$data = Json::decode(
+							FileSystem::read($tempFile),
+							Json::FORCE_ARRAY
+						);
+					} catch (JsonException | IOException $e) {
+						$data = null;
+					}
+
+					if ($data !== null && isset($data['loadDate'], $data['packageData'])) {
+						$loadDate = DateTime::from($data['loadDate']);
+
+						if (time() - $loadDate->getTimestamp() < 7200) {
+							$ret = $data['packageData'];
+
+							return $ret;
+						}
+					}
+				}
+
+				$ret = self::loadPackageDataFromPackagist('mati-core/cms');
+
+				try {
+					$data = Json::encode([
+						'loadDate' => date('Y-m-d H:i:s'),
+						'packageData' => $ret,
+					]);
+
+					FileSystem::write($tempFile, $data);
+				} catch (IOException | JsonException $e) {
+					Debugger::log($e);
+				}
+			} else {
+				$ret = self::loadPackageDataFromPackagist('mati-core/cms');
+			}
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * @param string $package
+	 * @return array|null
+	 */
+	public static function loadPackageDataFromPackagist(string $package): ?array
+	{
+		$data = file_get_contents('https://repo.packagist.org/p2/' . $package . '.json');
+
+		if ($data !== '') {
+			try {
+				$packagesData = Json::decode($data, Json::FORCE_ARRAY);
+
+				if (isset($packagesData['packages'][$package][0])) {
+					return $packagesData['packages'][$package][0];
+				}
+			} catch (JsonException $e) {
+				return null;
+			}
+		}
+
+		return null;
 	}
 
 }

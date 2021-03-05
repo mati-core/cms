@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MatiCore\Cms\Dashboard;
 
 
-use MatiCore\Cms\CmsHelper;
 use Nette\Application\UI\Control;
 
 /**
@@ -51,10 +50,6 @@ class DashboardBlockControl extends Control
 		$template = $this->template;
 		$template->setFile($this->templateFile);
 		$template->show = $show;
-		$template->systemStatus = CmsHelper::getCMSStatus();
-		$template->systemVersion = CmsHelper::getCMSVersion();
-		$template->systemVersionDate = CmsHelper::getCMSVersionDate();
-		$template->systemUpdateAvailable = CmsHelper::getAvaiableCMSUpdate();
 		$template->render();
 	}
 
