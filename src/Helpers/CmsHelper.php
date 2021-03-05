@@ -116,6 +116,22 @@ class CmsHelper
 	 */
 	public static function getAvailableCMSUpdate(): ?string
 	{
+		$version = self::getCMSVersion();
+		$newVersion = self::getCMSLastVersion();
+
+		if($newVersion !== null && version_compare($newVersion, $version, ">")){
+			return $newVersion;
+		}
+
+		return null;
+	}
+
+	/**
+	 * @return string|null
+	 * @throws \Exception
+	 */
+	public static function getCMSLastVersion(): ?string
+	{
 		static $ret;
 
 		if ($ret === null) {
@@ -134,29 +150,31 @@ class CmsHelper
 	 */
 	private static function loadCMSVersion(): string
 	{
-		try {
-			$composerData = self::getComposerData();
+		static $version;
 
-			if (isset($composerData['packages'])) {
-				foreach ($composerData['packages'] as $package) {
-					if (isset($package['name'], $package['version']) && $package['name'] === 'mati-core/cms') {
-						return $package['version'];
+		if ($version === null) {
+			try {
+				$composerData = self::getComposerData();
+
+				if (isset($composerData['packages'])) {
+					foreach ($composerData['packages'] as $package) {
+						if (isset($package['name'], $package['version']) && $package['name'] === 'mati-core/cms') {
+							$version = str_replace('v', '', $package['version']);
+						}
+					}
+				} elseif (isset($composerData['packages-dev'])) {
+					foreach ($composerData['packages-dev'] as $package) {
+						if (isset($package['name'], $package['version']) && $package['name'] === 'mati-core/cms') {
+							$version = str_replace('v', '', $package['version']);
+						}
 					}
 				}
+			} catch (JsonException $e) {
+				Debugger::log($e);
 			}
-
-			if (isset($composerData['packages-dev'])) {
-				foreach ($composerData['packages-dev'] as $package) {
-					if (isset($package['name'], $package['version']) && $package['name'] === 'mati-core/cms') {
-						return $package['version'];
-					}
-				}
-			}
-		} catch (JsonException $e) {
-			Debugger::log($e);
 		}
 
-		return 'Unknown';
+		return $version ?? 'Unknown';
 	}
 
 	/**
