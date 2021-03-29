@@ -33,7 +33,7 @@ parameters:
 				users:
 					title: cms.menu.settings.users.title
 					icon: 'fas fa-users'
-					position: 10
+					position: 90
 					rights:
 						- cms__users
 					children:
@@ -62,7 +62,7 @@ parameters:
 					title: cms.menu.settings.systemLog.title
 					icon: 'fas fa-bug'
 					route: ':Admin:SystemLog:default'
-					position: 20
+					position: 100
 					badgeHandler: cmsSystemLogBadgeHandler
 					rights:
 						- super-admin
