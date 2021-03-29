@@ -1,14 +1,23 @@
 .login-page {
   background: white;
-  background: linear-gradient(135deg, white 0%, #090979 50%, #00ff84 100%);
+}
+.login-page .login-box .card {
+  box-shadow: none !important;
+}
+.login-page .login-box .login-box-msg {
+  color: #666666;
+}
+
+.login-logo img {
+  max-height: 100px;
 }
 
 .login-footer {
-  color: white;
+  color: #666666;
 }
 
 .login-footer a {
-  color: #00d541;
+  color: #00383d;
 }
 
 /*# sourceMappingURL=sign-in.css.map */
