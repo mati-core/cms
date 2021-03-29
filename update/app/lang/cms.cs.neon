@@ -16,6 +16,7 @@ main:
 	access: Oprávnění
 	version: Verze
 	install: Instalovat
+	deleteConfirm: Opravdu si přejete smazat tuto položku?
 menu:
 	dashboard: Dashboard
 	settings:
