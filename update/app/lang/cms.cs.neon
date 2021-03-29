@@ -15,6 +15,9 @@ main:
 	description: Popis
 	access: Oprávnění
 	version: Verze
+	continue: Pokračovat
+	next: Další
+	previous: Předchozí
 	install: Instalovat
 	deleteConfirm: Opravdu si přejete smazat tuto položku?
 menu:
