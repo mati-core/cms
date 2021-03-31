@@ -27,6 +27,7 @@ class CmsHelper
 
 	/**
 	 * @return int
+	 * @throws \Exception
 	 */
 	public static function getCMSStatus(): int
 	{
@@ -113,6 +114,7 @@ class CmsHelper
 
 	/**
 	 * @return string|null
+	 * @throws \Exception
 	 */
 	public static function getAvailableCMSUpdate(): ?string
 	{
