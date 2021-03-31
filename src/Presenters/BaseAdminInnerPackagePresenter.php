@@ -10,7 +10,6 @@ use Baraja\Doctrine\EntityManager;
 use MatiCore\Cms\Components\FontAwesomeKit;
 use MatiCore\Cms\Nav\NavControl;
 use MatiCore\Menu\MenuPresenterTrait;
-use MatiCore\User\BaseUser;
 use MatiCore\User\StorageIdentity;
 use MatiCore\User\UserPresenterAccessTrait;
 
@@ -24,19 +23,19 @@ class BaseAdminInnerPackagePresenter extends BasePresenter
 	/**
 	 * @var string
 	 */
-	protected $pageRight = 'cms';
+	protected string $pageRight = 'cms';
 
 	/**
 	 * @var NavControl
 	 * @inject
 	 */
-	public $navControl;
+	public NavControl $navControl;
 
 	/**
 	 * @var EntityManager
 	 * @inject
 	 */
-	public $entityManager;
+	public EntityManager $entityManager;
 
 	use UserPresenterAccessTrait;
 	
