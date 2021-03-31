@@ -17,17 +17,17 @@ class DashboardBlockControl extends Control
 	/**
 	 * @var string
 	 */
-	protected $blockName;
+	protected string $blockName;
 
 	/**
 	 * @var string
 	 */
-	protected $right = 'cms';
+	protected string $right = 'cms';
 
 	/**
 	 * @var string
 	 */
-	protected $templateFile;
+	protected string $templateFile;
 
 	/**
 	 * @return string
