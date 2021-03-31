@@ -12,5 +12,4 @@ namespace App\AdminModule\Presenters;
 final class UserGroupPresenter extends UserGroupInnerPackagePresenter
 {
 
-
 }
