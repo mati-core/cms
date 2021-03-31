@@ -28,11 +28,6 @@ class AccountInnerPackagePresenter extends BaseAdminPresenter
 	use FormFactoryTrait;
 
 	/**
-	 * @var string
-	 */
-	protected $pageRight = 'cms';
-
-	/**
 	 * @return Form
 	 * @throws UserException
 	 */

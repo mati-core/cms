@@ -10,12 +10,11 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MatiCore\Form\FormFactoryTrait;
 use MatiCore\User\UserGroup;
-use MatiCore\User\UserManagerAccessor;
+use MatiCore\User\UserGroupException;
 use MatiCore\User\UserRole;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
-use Nette\Utils\Strings;
 use Tracy\Debugger;
 
 /**
@@ -28,19 +27,19 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 	/**
 	 * @var string
 	 */
-	protected $pageRight = 'cms__users__groups';
+	protected string $pageRight = 'cms__users__groups';
 
 	use FormFactoryTrait;
 
 	/**
 	 * @var UserGroup|null
 	 */
-	private $editedUserGroup;
+	private UserGroup|null $editedUserGroup;
 
 	/**
 	 * @var UserRole|null
 	 */
-	private $editedRole;
+	private UserRole|null $editedRole;
 
 	public function actionDefault(): void
 	{
@@ -50,6 +49,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @param string $id
+	 * @throws AbortException
 	 */
 	public function actionAccess(string $id): void
 	{
@@ -57,7 +57,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 			$this->editedUserGroup = $this->userManager->get()->getUserGroupById($id);
 			$this->template->group = $this->editedUserGroup;
 			$this->template->roles = $this->userManager->get()->getUserRoles();
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadované skupina uživatelů neexistuje.', 'error');
 			$this->redirect('default');
 		}
@@ -72,7 +72,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 		try {
 			$this->editedUserGroup = $this->userManager->get()->getUserGroupById($id);
 			$this->template->group = $this->editedUserGroup;
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadované skupina uživatelů neexistuje.', 'error');
 			$this->redirect('default');
 		}
@@ -80,6 +80,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @param string $id
+	 * @throws AbortException
 	 */
 	public function handleDelete(string $id): void
 	{
@@ -95,11 +96,11 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 				$this->entityManager->remove($group);
 				$this->entityManager->flush();
 
-				$this->flashMessage('Skupina byla úspěšně odebrána.', 'info');
-			} catch (EntityManagerException $e) {
+				$this->flashMessage('Skupina byla úspěšně odebrána.');
+			} catch (EntityManagerException) {
 				$this->flashMessage('Skupinu nelze odebrat, protože je používána.', 'error');
 			}
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadovaná skupina neexistuje.', 'error');
 		}
 
@@ -122,10 +123,10 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 				}
 
 				$this->entityManager->flush();
-			} catch (EntityManagerException $e) {
+			} catch (EntityManagerException) {
 				$this->flashMessage('Při ukládání do databáze nastala chyba.', 'error');
 			}
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadovaná skupina uživatel neexistuje.', 'error');
 		}
 
@@ -179,11 +180,12 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @return Form
+	 * @throws UserGroupException
 	 */
 	public function createComponentEditUserGroupForm(): Form
 	{
 		if ($this->editedUserGroup === null) {
-			throw new \Exception('Edited userGroup is null');
+			throw new UserGroupException('Edited userGroup is null');
 		}
 
 		$form = $this->formFactory->create();
@@ -223,7 +225,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 					try {
 						$role = $this->userManager->get()->getRoleById($roleId);
 						$group->addRole($role);
-					} catch (NoResultException|NonUniqueResultException $e) {
+					} catch (NoResultException|NonUniqueResultException) {
 						$this->flashMessage('Některé role se nepodařilo přiřadit ke skupině.', 'warning');
 					}
 				}

@@ -16,13 +16,13 @@ class HomepageInnerPackagePresenter extends BaseAdminPresenter
 	/**
 	 * @var string 
 	 */
-	protected $pageRight = 'page__dashboard';
+	protected string $pageRight = 'page__dashboard';
 
 	/**
 	 * @var DashboardControl
 	 * @inject
 	 */
-	public $dashboardControl;
+	public DashboardControl $dashboardControl;
 
 	/**
 	 * @return DashboardControl

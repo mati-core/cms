@@ -27,7 +27,7 @@ class SettingInnerPackagePresenter extends BaseAdminPresenter
 	/**
 	 * @var string
 	 */
-	protected $pageRight = 'cms__settings';
+	protected string $pageRight = 'cms__settings';
 
 	use FormFactoryTrait;
 

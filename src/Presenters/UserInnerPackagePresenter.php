@@ -6,13 +6,14 @@ declare(strict_types=1);
 namespace App\AdminModule\Presenters;
 
 use Baraja\Doctrine\EntityManagerException;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MatiCore\Form\FormFactoryTrait;
 use MatiCore\User\BaseUser;
 use MatiCore\User\IUser;
+use MatiCore\User\UserGroupException;
 use MatiCore\User\UserPassword;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use Tracy\Debugger;
@@ -27,14 +28,14 @@ class UserInnerPackagePresenter extends BaseAdminPresenter
 	/**
 	 * @var string
 	 */
-	protected $pageRight = 'cms__users__accounts';
+	protected string $pageRight = 'cms__users__accounts';
 
 	use FormFactoryTrait;
 
 	/**
 	 * @var BaseUser|IUser|null
 	 */
-	private $editedUser;
+	private BaseUser|IUser|null $editedUser;
 
 	public function actionDefault(): void
 	{
@@ -60,7 +61,7 @@ class UserInnerPackagePresenter extends BaseAdminPresenter
 		try {
 			$this->editedUser = $this->userManager->get()->getUserById($id);
 			$this->template->editedUser = $this->editedUser;
-		} catch (NonUniqueResultException|NoResultException $e) {
+		} catch (NonUniqueResultException|NoResultException) {
 			$this->flashMessage('Požadovaný uživatel neexistuje.', 'error');
 			$this->redirect('default');
 		}
@@ -68,16 +69,17 @@ class UserInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @param string $id
+	 * @throws AbortException
 	 */
 	public function handleDelete(string $id): void
 	{
 		try {
 			$user = $this->userManager->get()->getUserById($id);
 			$this->entityManager->remove($user)->flush();
-			$this->flashMessage('Uživatel byl úspěšně odebrán.', 'info');
-		} catch (NonUniqueResultException|NoResultException $e) {
+			$this->flashMessage('Uživatel byl úspěšně odebrán.');
+		} catch (NonUniqueResultException|NoResultException) {
 			$this->flashMessage('Požadovaný uživatel neexistuje.', 'error');
-		} catch (EntityManagerException|ForeignKeyConstraintViolationException $e) {
+		} catch (EntityManagerException) {
 			$this->flashMessage('Tohoto uživatele nezle odebrat, protože jsou na něho vázány položky v databázi', 'error');
 		}
 		$this->redirect('default');
@@ -85,6 +87,7 @@ class UserInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @return Form
+	 * @throws UserGroupException
 	 */
 	public function createComponentCreateUserForm(): Form
 	{

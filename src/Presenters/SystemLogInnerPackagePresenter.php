@@ -19,7 +19,7 @@ class SystemLogInnerPackagePresenter extends BaseAdminPresenter
 	/**
 	 * @var string
 	 */
-	protected $pageRight = 'super-admin';
+	protected string $pageRight = 'super-admin';
 
 	public function actionDefault(): void
 	{
@@ -42,7 +42,7 @@ class SystemLogInnerPackagePresenter extends BaseAdminPresenter
 
 					$title = 'Uknown error';
 
-					if(preg_match('/.*<title>(?<title>.*)<\/title>.*/', $fileContent, $m) && isset($m['title'])){
+					if (preg_match('/.*<title>(?<title>.*)<\/title>.*/', $fileContent, $m) && isset($m['title'])) {
 						$title = $m['title'];
 					}
 
@@ -119,9 +119,9 @@ class SystemLogInnerPackagePresenter extends BaseAdminPresenter
 		$this->template->exceptionErrors = $exceptionErrors;
 		$this->template->warningErrors = $warningErrors;
 		$this->template->infoErrors = $infoErrors;
-		$this->template->logCount = count($criticalErrors) 
-			+ count($exceptionErrors) 
-			+ count($warningErrors) 
+		$this->template->logCount = count($criticalErrors)
+			+ count($exceptionErrors)
+			+ count($warningErrors)
 			+ count($infoErrors);
 	}
 
@@ -143,18 +143,18 @@ class SystemLogInnerPackagePresenter extends BaseAdminPresenter
 					&& isset($match['type'], $match['date'], $match['time'], $match['hash'])
 					&& $match['hash'] === $hash
 				) {
-					if($this->getHttpResponse()->isSent() === false) {
+					if ($this->getHttpResponse()->isSent() === false) {
 						echo FileSystem::read($filePath);
 						die;
-					}else{
-						$founded = true;
-						$this->flashMessage('cms.error.headerSend', 'error');
 					}
+
+					$founded = true;
+					$this->flashMessage('cms.error.headerSend', 'error');
 				}
 			}
 		}
 
-		if($founded === false){
+		if ($founded === false) {
 			$this->flashMessage('cms.systemLog.notFound', 'error');
 		}
 	}
@@ -165,8 +165,6 @@ class SystemLogInnerPackagePresenter extends BaseAdminPresenter
 	public function handleDelete(string $hash): void
 	{
 		$logDirectory = Debugger::$logDirectory;
-
-		$founded = false;
 
 		if ($logDirectory !== null && is_dir($logDirectory)) {
 			foreach (Finder::findFiles('*.html')->in($logDirectory) as $file) {
@@ -180,7 +178,7 @@ class SystemLogInnerPackagePresenter extends BaseAdminPresenter
 					FileSystem::delete($filePath);
 
 					$this->actionDefault();
-					
+
 					break;
 				}
 			}

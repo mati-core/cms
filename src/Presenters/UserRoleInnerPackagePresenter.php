@@ -10,7 +10,6 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use MatiCore\Form\FormFactoryTrait;
 use MatiCore\User\UserGroup;
-use MatiCore\User\UserManagerAccessor;
 use MatiCore\User\UserRight;
 use MatiCore\User\UserRole;
 use Nette\Application\AbortException;
@@ -25,24 +24,24 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 	/**
 	 * @var string
 	 */
-	protected $pageRight = 'cms__users__roles';
+	protected string $pageRight = 'cms__users__roles';
 
 	use FormFactoryTrait;
 
 	/**
 	 * @var UserGroup|null
 	 */
-	private $editedUserGroup;
+	private UserGroup|null $editedUserGroup;
 
 	/**
 	 * @var UserRole|null
 	 */
-	private $editedRole;
+	private UserRole|null $editedRole;
 
 	/**
 	 * @var UserRight|null
 	 */
-	private $editedRight;
+	private UserRight|null $editedRight;
 
 	public function actionDefault(): void
 	{
@@ -51,6 +50,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @param string $id
+	 * @throws AbortException
 	 */
 	public function actionAccess(string $id): void
 	{
@@ -59,7 +59,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 			$this->template->role = $this->editedRole;
 			$this->template->rights = $this->getRights();
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadovaná role neexistuje.', 'error');
 			$this->redirect('default');
 		}
@@ -78,8 +78,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 			$parsed = explode('__', $right->getSlug());
 
 			if (count($parsed) === 2) {
-				$category = $parsed[0];
-				$name = $parsed[1];
+				[$category, $name] = $parsed;
 
 				$list[$category]['items'][$name] = [
 					'id' => $right->getId(),
@@ -89,8 +88,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 					'items' => [],
 				];
 			} elseif (count($parsed) === 3) {
-				$category = $parsed[0];
-				$subcategory = $parsed[1];
+				[$category, $subcategory] = $parsed;
 
 				$list[$category]['items'][$subcategory]['items'][] = [
 					'id' => $right->getId(),
@@ -125,7 +123,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 			$this->template->role = $this->editedRole;
 			$this->template->right = $this->editedRight;
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadované oprávnění neexistuje.', 'error');
 			$this->redirect('default');
 		}
@@ -134,6 +132,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 	/**
 	 * @param string $id
 	 * @param string $rightId
+	 * @throws AbortException
 	 */
 	public function handleRemoveRight(string $id, string $rightId): void
 	{
@@ -145,7 +144,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 			$this->flashMessage('Oprávnění bylo odstraněno.', 'success');
 			$this->redirect('access', ['id' => $this->editedRole->getId()]);
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadované oprávnění neexistuje.', 'error');
 		}
 		$this->redirect('default');
@@ -160,7 +159,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 		try {
 			$this->editedRole = $this->userManager->get()->getRoleById($id);
 			$this->template->role = $this->editedRole;
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadovaná role nebyla nalezena.', 'error');
 			$this->redirect('default');
 		}
@@ -168,9 +167,10 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @param string $id
-	 * @param string $rightId
+	 * @param string|null $rightId
+	 * @throws AbortException
 	 */
-	public function handleToogleRight(string $id, string $rightId = null): void
+	public function handleToggleRight(string $id, string $rightId = null): void
 	{
 		try {
 			$this->editedRole = $this->userManager->get()->getRoleById($id);
@@ -184,10 +184,10 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 			$this->entityManager->flush();
 
-		} catch (NoResultException|NonUniqueResultException $e) {
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadované oprávnění neexistuje.', 'error');
 			$this->redirect('default');
-		} catch (EntityManagerException $e) {
+		} catch (EntityManagerException) {
 			$this->flashMessage('Při ukládání do databáze nastala chyba.', 'error');
 			$this->redirect('default');
 		}
@@ -195,6 +195,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 	/**
 	 * @param string $id
+	 * @throws AbortException
 	 */
 	public function handleDelete(string $id): void
 	{
@@ -202,8 +203,8 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 			$role = $this->userManager->get()->getRoleById($id);
 
 			$this->userManager->get()->removeRole($role);
-			$this->flashMessage('Role ' . $role->getName() . ' byla odstraněna.', 'info');
-		} catch (NoResultException|NonUniqueResultException $e) {
+			$this->flashMessage('Role ' . $role->getName() . ' byla odstraněna.');
+		} catch (NoResultException|NonUniqueResultException) {
 			$this->flashMessage('Požadovaná role neexistuje.', 'error');
 		} catch (EntityManagerException $e) {
 			Debugger::log($e);
@@ -234,7 +235,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 				$this->flashMessage('Role ' . $role->getName() . ' byla úspěšně vytvořena.', 'success');
 
 				$this->redirect('default');
-			} catch (EntityManagerException $e) {
+			} catch (EntityManagerException) {
 				$this->flashMessage('Při ukládání do databáze nastala chyba.', 'error');
 			}
 		};
@@ -269,7 +270,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 				$this->flashMessage('Změny byly úspěšně uloženy.', 'success');
 
 				$this->redirect('default');
-			} catch (EntityManagerException $e) {
+			} catch (EntityManagerException) {
 				$this->flashMessage('Při ukládání do databáze nastala chyba.', 'error');
 			}
 		};
@@ -306,7 +307,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 
 				$this->flashMessage('Změny byly úspěšně uloženy.', 'success');
 				$this->redirect('access', ['id' => $this->editedRole->getId()]);
-			} catch (EntityManagerException $e) {
+			} catch (EntityManagerException) {
 				$this->flashMessage('Při ukládání do databáze nastala chyba.', 'error');
 			}
 		};
