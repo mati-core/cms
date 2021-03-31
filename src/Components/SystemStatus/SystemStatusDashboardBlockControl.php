@@ -16,17 +16,17 @@ class SystemStatusDashboardBlockControl extends DashboardBlockControl
 	/**
 	 * @var string
 	 */
-	protected $blockName = 'systemStatus';
+	protected string $blockName = 'systemStatus';
 
 	/**
 	 * @var string
 	 */
-	protected $right = 'page__dashboard__system_status';
+	protected string $right = 'page__dashboard__system_status';
 
 	/**
 	 * @var string
 	 */
-	protected $templateFile = __DIR__ . '/default.latte';
+	protected string $templateFile = __DIR__ . '/default.latte';
 
 	public function render(): void
 	{
