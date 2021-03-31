@@ -12,9 +12,4 @@ namespace App\AdminModule\Presenters;
 final class SettingPresenter extends SettingInnerPackagePresenter
 {
 
-	/**
-	 * @var string
-	 */
-	protected $pageRight = 'cms__settings';
-
 }
