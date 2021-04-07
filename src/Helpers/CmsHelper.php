@@ -121,7 +121,7 @@ class CmsHelper
 		$version = self::getCMSVersion();
 		$newVersion = self::getCMSLastVersion();
 
-		if($newVersion !== null && version_compare($newVersion, $version, ">")){
+		if ($newVersion !== null && version_compare($newVersion, $version, ">")) {
 			return $newVersion;
 		}
 
@@ -286,7 +286,13 @@ class CmsHelper
 	 */
 	public static function loadPackageDataFromPackagist(string $package): ?array
 	{
-		$data = file_get_contents('https://repo.packagist.org/p2/' . $package . '.json');
+		$ctx = stream_context_create([
+			'http' => [
+				'timeout' => 3,
+			],
+		]);
+
+		$data = (string) @file_get_contents('https://repo.packagist.org/p2/' . $package . '.json', false, $ctx);
 
 		if ($data !== '') {
 			try {

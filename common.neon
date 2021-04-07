@@ -75,5 +75,5 @@ services:
 	dashboardControl:
 	 	factory: MatiCore\Cms\Dashboard\DashboardControl
 	 	setup:
-	 		- addBlock(@MatiCore\Cms\Dashboard\SystemStatusDashboardBlockControl, 100)
+	 		- addBlock(@MatiCore\Cms\Dashboard\SystemStatusDashboardBlockControl, 10)
 	cmsSystemLogBadgeHandler: MatiCore\Cms\SystemLogBadgeHandler
