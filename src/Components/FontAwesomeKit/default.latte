@@ -2,7 +2,7 @@
 	{if $kitId !== null}
 		<script src="https://kit.fontawesome.com/{$faviconPackId}.js" crossorigin="anonymous"></script>
 	{else}
-		<link n:if="$cssUrl !== null" href="{$cssUrl}" rel="stylesheet"></link>
-		<script n:if="$jsUrl !== null" src="{$jsUrl}" data-auto-add-css="false"></script>
+		<link n:if="$cssUrl !== null" href="{$cssUrl}" rel="stylesheet">
+		<script n:if="$jsUrl !== null" src="{$jsUrl}" data-auto-add-css="{$cssAutoLoad}"></script>
 	{/if}
 {/cache}

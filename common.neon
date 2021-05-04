@@ -3,6 +3,7 @@ parameters:
 		kitId: null #insert kit ID from https://fontawesome.com/start <null|string>
 		css: null	#insert your fontawesome CSS url <null|string>
 		js: null	#insert your fontawesome JS url <null|string>
+		cssAutoLoad: true
 	menu:
 		cmsMainDefault:
 			group: cms-main

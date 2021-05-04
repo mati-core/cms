@@ -22,7 +22,7 @@ class FontAwesomeKitControl extends Control
 
 	/**
 	 * FontAwesomeKitControl constructor.
-	 * @param array<null|string> $config
+	 * @param array<null|string|bool> $config
 	 */
 	public function __construct(array $config)
 	{
@@ -37,6 +37,7 @@ class FontAwesomeKitControl extends Control
 		$kitId = $this->config['kitId'] ?? null;
 		$cssUrl = $this->config['css'] ?? null;
 		$jsUrl = $this->config['js'] ?? null;
+		$cssAutoLoad = $this->config['cssAutoLoad'] ?? true;
 
 		if (
 			$kitId === null
@@ -51,6 +52,7 @@ class FontAwesomeKitControl extends Control
 		$template->kitId = $kitId;
 		$template->cssUrl = $cssUrl;
 		$template->jsUrl = $jsUrl;
+		$template->cssAutoLoad = $cssAutoLoad ? 'true' : 'false';
 		$template->setFile(__DIR__ . '/default.latte');
 		$template->render();
 	}
