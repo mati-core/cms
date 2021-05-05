@@ -73,5 +73,7 @@ systemLog:
 	infoError: Info
 	notFound: Požadovaný log nenalezen.
 	noItems: Nejsou evidovány žádné logy.
+	testError: Test
+	refresh: Obnovit
 error:
 	headerSend: Hlavičky byly již odeslány!

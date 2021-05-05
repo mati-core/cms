@@ -28,18 +28,18 @@
 								<h3 class="profile-username text-center">{$user?->getFullName()}</h3>
 								<p class="text-muted text-center">{$user?->getGroup()?->getName()}</p>
 							</div>
-						</div>
-						<div class="col-12 col-md-9">
 							<div class="row">
-								<div class="col text-right">
+								<div class="col text-center">
 									<a n:href="Account:edit" class="btn btn-xs btn-warning">
 										<i class="fas fa-pen"></i>&nbsp;{_cms.main.edit}
 									</a>
 									<a n:href="Sign:out" class="btn btn-xs btn-outline-danger">
-										<i class="fas fa-sign-out"></i>
+										<i class="fas fa-sign-out"></i>&nbsp;{_cms.profile.sign_out}
 									</a>
 								</div>
 							</div>
+						</div>
+						<div class="col-12 col-md-9">
 							<div class="row">
 								<div class="col-12 col-md-6">
 									<ul class="list-group list-group-unbordered mb-3 mt-5">

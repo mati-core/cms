@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\AdminModule\Presenters;
 
+use MatiCore\Cms\TestException;
 use Nette\Utils\DateTime;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
@@ -185,6 +186,15 @@ class SystemLogInnerPackagePresenter extends BaseAdminPresenter
 		}
 
 		$this->redrawControl('pageContent');
+	}
+
+	/**
+	 * @throws TestException
+	 */
+	public function handleTestError(): void
+	{
+		Debugger::enable(Debugger::PRODUCTION);
+		throw new TestException('This is TEST error from Mati-Core CMS', 100110);
 	}
 
 }

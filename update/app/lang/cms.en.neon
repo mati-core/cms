@@ -73,5 +73,7 @@ systemLog:
 	infoError: Info
 	notFound: Log not found.
 	noItems: No logs in system.
+	testError: Test
+	refresh: Reload
 error:
 	headerSend: Headers was send!
