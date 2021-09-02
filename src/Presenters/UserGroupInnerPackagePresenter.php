@@ -163,7 +163,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 					$group->addRole($role);
 				}
 
-				$this->entityManager->flush($group);
+				$this->entityManager->getUnitOfWork()->commit($group);
 
 				$this->flashMessage('Skupina uživatelů byla úspěšně přidána.', 'success');
 
@@ -219,7 +219,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 					$group->removeRole($r);
 				}
 
-				$this->entityManager->flush($group);
+				$this->entityManager->getUnitOfWork()->commit($group);
 
 				foreach ($values->roles as $roleId) {
 					try {
@@ -230,7 +230,7 @@ class UserGroupInnerPackagePresenter extends BaseAdminPresenter
 					}
 				}
 
-				$this->entityManager->flush($group);
+				$this->entityManager->getUnitOfWork()->commit($group);
 
 				$this->flashMessage('Změny byly úspěšně uloženy.', 'success');
 

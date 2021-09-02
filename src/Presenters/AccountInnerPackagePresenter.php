@@ -107,7 +107,7 @@ class AccountInnerPackagePresenter extends BaseAdminPresenter
 
 				$user->getIcon();
 
-				$this->entityManager->flush($user);
+				$this->entityManager->getUnitOfWork()->commit($user);
 
 				$this->flashMessage('Změny byly úspěšně uloženy.', 'success');
 				$this->redirect('Account:default');
@@ -164,7 +164,7 @@ class AccountInnerPackagePresenter extends BaseAdminPresenter
 
 				$user->setPassword($password);
 
-				$this->entityManager->flush($user);
+				$this->entityManager->getUnitOfWork()->commit($user);
 
 				$this->flashMessage('cms.profile.passwordChangeSuccess', 'success');
 				$this->redirect('Account:default');

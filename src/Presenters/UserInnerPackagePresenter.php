@@ -165,7 +165,7 @@ class UserInnerPackagePresenter extends BaseAdminPresenter
 
 				$user->getIcon();
 
-				$this->entityManager->persist($user)->flush($user);
+				$this->entityManager->persist($user)->getUnitOfWork()->commit($user);
 				$this->flashMessage('Uživatel byl úspěšně vytvořen.', 'success');
 				$this->redirect('default');
 			} catch (EntityManagerException $e) {
@@ -268,7 +268,7 @@ class UserInnerPackagePresenter extends BaseAdminPresenter
 					$user->setPassword(UserPassword::hash($values->password));
 				}
 
-				$this->entityManager->flush($user);
+				$this->entityManager->getUnitOfWork()->commit($user);
 				$this->flashMessage('Uživatel byl úspěšně vytvořen.', 'success');
 				$this->redirect('default');
 			} catch (EntityManagerException $e) {

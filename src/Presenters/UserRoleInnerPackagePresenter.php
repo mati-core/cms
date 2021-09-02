@@ -230,7 +230,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 			try {
 				$role = new UserRole($values->name);
 
-				$this->entityManager->persist($role)->flush($role);
+				$this->entityManager->persist($role)->getUnitOfWork()->commit($role);
 
 				$this->flashMessage('Role ' . $role->getName() . ' byla úspěšně vytvořena.', 'success');
 
@@ -265,7 +265,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 				$this->editedRole->setName($values->name);
 				$this->editedRole->setSlug(Strings::webalize($values->name));
 
-				$this->entityManager->flush($this->editedRole);
+				$this->entityManager->getUnitOfWork()->commit($this->editedRole);
 
 				$this->flashMessage('Změny byly úspěšně uloženy.', 'success');
 
@@ -303,7 +303,7 @@ class UserRoleInnerPackagePresenter extends BaseAdminPresenter
 				$this->editedRight->setName($values->name);
 				$this->editedRight->setDescription($values->description);
 
-				$this->entityManager->flush($this->editedRight);
+				$this->entityManager->getUnitOfWork()->commit($this->editedRight);
 
 				$this->flashMessage('Změny byly úspěšně uloženy.', 'success');
 				$this->redirect('access', ['id' => $this->editedRole->getId()]);
